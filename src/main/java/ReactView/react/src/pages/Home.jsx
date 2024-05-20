@@ -6,6 +6,7 @@ import MealTypeSelectPage from '../components/MealTypeSelectPage';
 import VoiceRecognition from '../voiceRecognition';
 import Sidebar from '../components/Sidebar';
 import NewRecipe from '../components/NewRecipe';
+import OutputtedRecipe from '../components/OutputtedRecipe';
 
 const basepath = import.meta.env.BASE_URL;
 
@@ -32,6 +33,8 @@ function HomePage() {
         return <VoiceRecognition onNavigate={navigateTo} />;
       case 'NewRecipe':
         return <NewRecipe onNavigate={navigateTo} />;
+      case 'OutputtedRecipe':
+        return <OutputtedRecipe onNavigate={navigateTo} />;
       default:
         return <HomePage onNavigate={navigateTo} />;
     }
@@ -46,6 +49,8 @@ function HomePage() {
     else if (currentPage == 'VoiceRecognition')
       setCurrentPage('MealTypeSelect');
     else if (currentPage == 'NewRecipe')
+      setCurrentPage('VoiceRecognition');
+    else if (currentPage == 'OutputtedRecipe')
       setCurrentPage('VoiceRecognition');
   }
 
