@@ -4,7 +4,7 @@ function WelcomeScreen(props) {
   const { onNavigate } = props;
   return (
     <Flex align='center' justify='center' width='full' height='full'>
-      <Container maxWidth='300px'>
+      <Container maxHeight='1000px' maxWidth='500px'>
         <Stack spacing={2}>
           <Button
             colorScheme='blue'
