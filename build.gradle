@@ -52,5 +52,5 @@ test {
 }
 
 application {
-    mainClassName = "View.app"
+    mainClassName = "View.App"
 }
