@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'EtnaSans';
+    src: url('fonts/EtnaSans.otf') format('truetype');
+}
+
+.title {
+    font-family: 'EtnaSans', sans-serif;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
