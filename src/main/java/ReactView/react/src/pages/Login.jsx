@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import './Login.css';
+import './styles.css';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -65,7 +65,7 @@ function LoginPage() {
         <Stack spacing={2} marginTop='-12'>
           <Box display='flex' justifyContent='center' marginBottom='-12'>
             <img
-              src='/mochicook.png'
+              src='/peachandgomacook.png'
               alt='Logo'
               style={{ width: '200px', height: '200px' }}
             />
@@ -89,8 +89,8 @@ function LoginPage() {
               value={username}
               onChange={handleUsernameChange}
             />
-            <FormErrorMessage marginTop='1'>
-              Username is required.
+            <FormErrorMessage fontSize='12px' marginTop='1'>
+              Username is required
             </FormErrorMessage>
           </FormControl>
           <FormLabel color='#856454' marginBottom='-1'>
@@ -104,8 +104,8 @@ function LoginPage() {
               value={password}
               onChange={handlePasswordChange}
             />
-            <FormErrorMessage marginTop='1'>
-              Password is required.
+            <FormErrorMessage fontSize='12px' marginTop='1'>
+              Password is required
             </FormErrorMessage>
           </FormControl>
           <Stack
@@ -116,7 +116,7 @@ function LoginPage() {
             spacing='8'>
             <Button
               flex='1'
-              size='sm'
+              size='md'
               color='white'
               backgroundColor='#856454'
               onClick={handleLoginClick}>
@@ -124,7 +124,7 @@ function LoginPage() {
             </Button>
             <Button
               flex='1'
-              size='sm'
+              size='md'
               color='white'
               backgroundColor='#856454'
               onClick={handleCreateAccountClick}>
