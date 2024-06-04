@@ -89,8 +89,8 @@ function LoginPage() {
               value={username}
               onChange={handleUsernameChange}
             />
-            <FormErrorMessage marginTop='1'>
-              Username is required.
+            <FormErrorMessage fontSize='12px' marginTop='1'>
+              Username is required
             </FormErrorMessage>
           </FormControl>
           <FormLabel color='#856454' marginBottom='-1'>
@@ -104,8 +104,8 @@ function LoginPage() {
               value={password}
               onChange={handlePasswordChange}
             />
-            <FormErrorMessage marginTop='1'>
-              Password is required.
+            <FormErrorMessage fontSize='12px' marginTop='1'>
+              Password is required
             </FormErrorMessage>
           </FormControl>
           <Stack
@@ -116,7 +116,7 @@ function LoginPage() {
             spacing='8'>
             <Button
               flex='1'
-              size='sm'
+              size='md'
               color='white'
               backgroundColor='#856454'
               onClick={handleLoginClick}>
@@ -124,7 +124,7 @@ function LoginPage() {
             </Button>
             <Button
               flex='1'
-              size='sm'
+              size='md'
               color='white'
               backgroundColor='#856454'
               onClick={handleCreateAccountClick}>
