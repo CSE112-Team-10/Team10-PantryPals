@@ -65,7 +65,7 @@ function LoginPage() {
         <Stack spacing={2} marginTop='-12'>
           <Box display='flex' justifyContent='center' marginBottom='-12'>
             <img
-              src='/mochicook.png'
+              src='/peachandgomacook.png'
               alt='Logo'
               style={{ width: '200px', height: '200px' }}
             />
