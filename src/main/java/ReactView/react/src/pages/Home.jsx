@@ -7,6 +7,7 @@ import VoiceRecognition from '../voiceRecognition';
 import Sidebar from '../components/Sidebar';
 import NewRecipe from '../components/NewRecipe';
 import OutputtedRecipe from '../components/OutputtedRecipe';
+import './styles.css';
 
 const basepath = import.meta.env.BASE_URL;
 
@@ -48,8 +49,7 @@ function HomePage() {
     if (currentPage == 'MealTypeSelect') setCurrentPage('home');
     else if (currentPage == 'VoiceRecognition')
       setCurrentPage('MealTypeSelect');
-    else if (currentPage == 'NewRecipe')
-      setCurrentPage('VoiceRecognition');
+    else if (currentPage == 'NewRecipe') setCurrentPage('VoiceRecognition');
     else if (currentPage == 'OutputtedRecipe')
       setCurrentPage('VoiceRecognition');
   }
@@ -62,16 +62,33 @@ function HomePage() {
 
   return (
     <Flex width='100vw' height='100vh' align='center' justify='center'>
-      <Button
-        p={2}
+      <Box
+        className='title2'
         position='absolute'
-        top='15px'
-        right='15px'
-        size='sm'
-        colorScheme='blue'
+        top='50px'
+        left='50px'
+        backgroundColor='#F2D9BB'
+        color='#8F6152'
+        display='flex'
+        justifyContent='left'
+        _hover={{ cursor: 'pointer' }}
+        fontWeight='600'>
+        Recipe Book
+      </Box>
+      <Box
+        className='title2'
+        position='absolute'
+        top='50px'
+        right='50px'
+        backgroundColor='#F2D9BB'
+        color='#8F6152'
+        display='flex'
+        justifyContent='right'
+        _hover={{ cursor: 'pointer' }}
+        fontWeight='600'
         onClick={handleLogoutClick}>
-        Logout
-      </Button>
+        Log Out
+      </Box>
       {currentPage !== 'home' && (
         <Button
           p={2}
@@ -85,13 +102,13 @@ function HomePage() {
         </Button>
       )}
       <HStack width='full' height='full' spacing={0}>
-        <Flex minWidth='300px' height='full' p={4} padding='16px 0px 16px 16px'>
+        {/* <Flex minWidth='300px' height='full' p={4} padding='16px 0px 16px 16px'>
           <Sidebar />
-        </Flex>
-        <Box width='100%' height='full' padding='16px 16px 16px 0px'>
+        </Flex> */}
+        <Box width='100%' height='full'>
           {renderPage()}
           {/* <WelcomePage /> */}
-          {/* <VoiceRecognition></VoiceRecognition> */}
+          {/* <VoiceRecognition></VoiceRecognition>  */}
         </Box>
       </HStack>
     </Flex>

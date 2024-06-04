@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'EtnaSans';
+    src: url('fonts/EtnaSans.otf') format('truetype');
+}
+
+.title {
+    font-family: 'EtnaSans', sans-serif;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+@font-face {
+    font-family: 'FredokaOne';
+    src: url('fonts/Fredoka.ttf') format('truetype');
+}
+
+.title2 {
+    font-family: 'FredokaOne';
+    font-size: 2em;
+
+}
+
+@font-face {
+    font-family: 'Sniglet';
+    src: url('fonts/Sniglet.ttf') format('truetype');
+}
+
+.title3 {
+    font-family: 'Sniglet';
+    font-size: 2em;
+}

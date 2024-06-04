@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import './Login.css';
+import './styles.css';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
