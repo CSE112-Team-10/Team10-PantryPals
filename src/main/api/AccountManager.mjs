@@ -9,6 +9,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 import { randomUUID } from 'crypto'; 
+import * as bcrypt from 'bcrypt';
 
 const client = new DynamoDBClient({region: 'us-east-2',});
 const dynamo = DynamoDBDocumentClient.from(client);
@@ -26,6 +27,9 @@ export const handler = async (event, context) => {
     "Content-Type": "application/json",
   };
   
+  let saltRounds = 9;
+  let hash_password;
+  let pass_word_verification
 
   try {
     
@@ -50,6 +54,16 @@ export const handler = async (event, context) => {
         }
         
         const uniqueId = randomUUID();
+        
+        await bcrypt
+          .hash(requestJSON.password, saltRounds)
+          .then(hash => {
+            hash_password = hash;
+          })
+          .catch(err => {
+            throw new Error(err.message);
+          });
+        
         /*Insert new username and password*/
         putResult = await dynamo.send(
           new PutCommand({
@@ -57,7 +71,7 @@ export const handler = async (event, context) => {
               Item: {
                 id: uniqueId,
                 username: requestJSON.username,
-                password: requestJSON.password,
+                password: hash_password,
               },
           })
         );
@@ -95,7 +109,7 @@ export const handler = async (event, context) => {
         
         break;
         
-      case "GET /getUserId":
+      case "POST /getUserId":
         requestJSON = JSON.parse(event.body);
         
         /*Given a username and password, find the 
@@ -111,15 +125,16 @@ export const handler = async (event, context) => {
           })
         );
         
-        if (queryResult.$metadata.httpStatusCode === 200 & queryResult.Items.length > 0 && queryResult.Items[0]['password'] === requestJSON.password) {
-          body = queryResult.Items[0]['id'];
+        if (queryResult.$metadata.httpStatusCode === 200 & queryResult.Items.length > 0) {
+          pass_word_verification = await bcrypt.compare(requestJSON.password, queryResult.Items[0]['password']).then(resp => {return resp});
+          pass_word_verification ? body = queryResult.Items[0]['id'] : body = '-1';
         } else {
           body = '-1';
         }
         
         break;
         
-      case "GET /verify":
+      case "POST /verify":
         requestJSON = JSON.parse(event.body);
         
         /*Given the username and password, query the password
@@ -135,8 +150,9 @@ export const handler = async (event, context) => {
           })
         );
         
-        if (queryResult.$metadata.httpStatusCode === 200 & queryResult.Items.length > 0 && queryResult.Items[0]['password'] === requestJSON.password) {
-          body = '1';
+        if (queryResult.$metadata.httpStatusCode === 200 & queryResult.Items.length > 0) {
+          pass_word_verification = await bcrypt.compare(requestJSON.password, queryResult.Items[0]['password']).then(resp => {return resp});
+          pass_word_verification ? body = '1' : body = '-1';
         } else {
           body = '-1';
         }
