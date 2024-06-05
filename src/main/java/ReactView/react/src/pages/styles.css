@@ -6,7 +6,6 @@
 .title {
     font-family: 'EtnaSans', sans-serif;
     font-size: 2em;
-    margin-bottom: 20px;
 }
 
 @font-face {
@@ -27,5 +26,15 @@
 
 .title3 {
     font-family: 'Sniglet';
+    font-size: 2em;
+}
+
+@font-face {
+    font-family: 'Borsok';
+    src: url('fonts/Borsok.otf') format('truetype');
+}
+
+.title4 {
+    font-family: 'Borsok';
     font-size: 2em;
 }

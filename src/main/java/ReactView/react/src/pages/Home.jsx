@@ -65,7 +65,7 @@ function HomePage() {
       <Box
         className='title2'
         position='absolute'
-        top='50px'
+        top='25px'
         left='50px'
         backgroundColor='#F2D9BB'
         color='#8F6152'
@@ -78,7 +78,7 @@ function HomePage() {
       <Box
         className='title2'
         position='absolute'
-        top='50px'
+        top='25px'
         right='50px'
         backgroundColor='#F2D9BB'
         color='#8F6152'
@@ -90,16 +90,20 @@ function HomePage() {
         Log Out
       </Box>
       {currentPage !== 'home' && (
-        <Button
-          p={2}
+        <Box
+          className='title2'
           position='absolute'
-          bottom='15px'
-          right='15px'
-          size='sm'
-          colorScheme='red'
+          bottom='25px'
+          right='50px'
+          backgroundColor='#F2D9BB'
+          color='#8F6152'
+          display='flex'
+          justifyContent='right'
+          _hover={{ cursor: 'pointer' }}
+          fontWeight='600'
           onClick={handleBackClick}>
           Back
-        </Button>
+        </Box>
       )}
       <HStack width='full' height='full' spacing={0}>
         {/* <Flex minWidth='300px' height='full' p={4} padding='16px 0px 16px 16px'>
