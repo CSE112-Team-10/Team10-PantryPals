@@ -18,7 +18,7 @@ function WelcomeScreen(props) {
             borderRadius='16px'
             backgroundColor='#8F6152'
             textColor='#F2F2F2'
-            fontSize='2em'
+            fontSize='1.5em'
             onClick={() => onNavigate('MealTypeSelect')}>
             Generate Recipe
           </Button>
