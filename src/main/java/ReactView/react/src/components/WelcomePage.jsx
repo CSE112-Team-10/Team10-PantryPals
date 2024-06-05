@@ -12,7 +12,7 @@ function WelcomeScreen(props) {
         justifyContent='center'>
         <Stack spacing={2}>
           <Button
-            className='title3'
+            className='title2'
             height='50px'
             width='350px'
             borderRadius='16px'

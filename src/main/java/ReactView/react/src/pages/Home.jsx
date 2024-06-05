@@ -63,9 +63,9 @@ function HomePage() {
   return (
     <Flex width='100vw' height='100vh' align='center' justify='center'>
       <Box
-        className='title2'
+        className='title4'
         position='absolute'
-        top='25px'
+        top='50px'
         left='50px'
         backgroundColor='#F2D9BB'
         color='#8F6152'
@@ -76,9 +76,9 @@ function HomePage() {
         Recipe Book
       </Box>
       <Box
-        className='title2'
+        className='title4'
         position='absolute'
-        top='25px'
+        top='50px'
         right='50px'
         backgroundColor='#F2D9BB'
         color='#8F6152'
@@ -91,9 +91,9 @@ function HomePage() {
       </Box>
       {currentPage !== 'home' && (
         <Box
-          className='title2'
+          className='title4'
           position='absolute'
-          bottom='25px'
+          bottom='50px'
           right='50px'
           backgroundColor='#F2D9BB'
           color='#8F6152'

@@ -19,7 +19,8 @@ function MealTypeSelectScreen(props) {
             color='#856454'
             className='title'
             align='center'
-            marginBottom='1em'
+            marginTop='-0.5em'
+            marginBottom='0.5em'
             fontSize='40px'
             fontWeight={600}>
             Select Meal Type
