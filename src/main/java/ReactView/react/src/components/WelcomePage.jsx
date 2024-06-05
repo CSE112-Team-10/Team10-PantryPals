@@ -13,7 +13,7 @@ function WelcomeScreen(props) {
         <Stack spacing={2}>
           <Button
             className='title3'
-            height='75px'
+            height='50px'
             width='350px'
             borderRadius='16px'
             backgroundColor='#8F6152'
