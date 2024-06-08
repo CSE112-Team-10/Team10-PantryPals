@@ -1,5 +1,5 @@
 export async function AccountManager({ method, userId, recipeId, recipeTitle, recipeText, mealType, base64Image }) {
-    const url = `https://az3u50k7ec.execute-api.us-east-2.amazonaws.com/${method}`;
+    const url = `https://gmz0b5uwv0.execute-api.us-east-2.amazonaws.com/${method}`;
 
     let content;
     if(method == 'deleteRecipe'){
