@@ -1,4 +1,4 @@
-export async function AccountManager({ method, userId, recipeId, recipeTitle, recipeText, mealType, base64Image }) {
+export async function RecipeManager({ method, userId, recipeId, recipeTitle, recipeText, mealType, base64Image }) {
     const url = `https://gmz0b5uwv0.execute-api.us-east-2.amazonaws.com/${method}`;
 
     let content;
