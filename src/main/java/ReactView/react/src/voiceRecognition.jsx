@@ -55,7 +55,7 @@ const VoiceRecognition = (props) => {
               Stop Listening
             </Button>
           </Stack>
-          <Button colorScheme='green' size='sm' onClick={() => onNavigate('OutputtedRecipe')}>
+          <Button colorScheme='green' size='sm' onClick={() => onNavigate('Load')}>
             Generate
           </Button>
           <Button colorScheme='red' size='sm' onClick={resetTranscript}>
