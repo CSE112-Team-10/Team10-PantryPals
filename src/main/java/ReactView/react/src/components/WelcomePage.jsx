@@ -12,13 +12,13 @@ function WelcomeScreen(props) {
         justifyContent='center'>
         <Stack spacing={2}>
           <Button
-            className='title3'
-            height='75px'
+            className='title2'
+            height='50px'
             width='350px'
             borderRadius='16px'
             backgroundColor='#8F6152'
             textColor='#F2F2F2'
-            fontSize='2em'
+            fontSize='1.5em'
             onClick={() => onNavigate('MealTypeSelect')}>
             Generate Recipe
           </Button>

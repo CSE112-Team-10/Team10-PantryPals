@@ -7,6 +7,7 @@ import VoiceRecognition from '../voiceRecognition';
 import Sidebar from '../components/Sidebar';
 import NewRecipe from '../components/NewRecipe';
 import OutputtedRecipe from '../components/OutputtedRecipe';
+import Load from '../components/Load';
 import './styles.css';
 
 const basepath = import.meta.env.BASE_URL;
@@ -34,6 +35,8 @@ function HomePage() {
         return <VoiceRecognition onNavigate={navigateTo} />;
       case 'NewRecipe':
         return <NewRecipe onNavigate={navigateTo} />;
+      case 'Load':
+        return <Load onNavigate={navigateTo} />;
       case 'OutputtedRecipe':
         return <OutputtedRecipe onNavigate={navigateTo} />;
       default:
@@ -50,6 +53,7 @@ function HomePage() {
     else if (currentPage == 'VoiceRecognition')
       setCurrentPage('MealTypeSelect');
     else if (currentPage == 'NewRecipe') setCurrentPage('VoiceRecognition');
+    else if (currentPage == 'Load') setCurrentPage('VoiceRecognition');
     else if (currentPage == 'OutputtedRecipe')
       setCurrentPage('VoiceRecognition');
   }
@@ -63,7 +67,7 @@ function HomePage() {
   return (
     <Flex width='100vw' height='100vh' align='center' justify='center'>
       <Box
-        className='title2'
+        className='title4'
         position='absolute'
         top='50px'
         left='50px'
@@ -76,7 +80,7 @@ function HomePage() {
         Recipe Book
       </Box>
       <Box
-        className='title2'
+        className='title4'
         position='absolute'
         top='50px'
         right='50px'
@@ -90,16 +94,20 @@ function HomePage() {
         Log Out
       </Box>
       {currentPage !== 'home' && (
-        <Button
-          p={2}
+        <Box
+          className='title4'
           position='absolute'
-          bottom='15px'
-          right='15px'
-          size='sm'
-          colorScheme='red'
+          bottom='50px'
+          right='50px'
+          backgroundColor='#F2D9BB'
+          color='#8F6152'
+          display='flex'
+          justifyContent='right'
+          _hover={{ cursor: 'pointer' }}
+          fontWeight='600'
           onClick={handleBackClick}>
           Back
-        </Button>
+        </Box>
       )}
       <HStack width='full' height='full' spacing={0}>
         {/* <Flex minWidth='300px' height='full' p={4} padding='16px 0px 16px 16px'>
