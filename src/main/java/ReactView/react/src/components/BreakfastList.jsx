@@ -30,6 +30,7 @@ function BreakfastList(props) {
           color='#856454'
           className='title'
           marginTop='20px'
+          marginRight='50px'
           fontSize='50px'>
           Breakfast Recipes
         </Text>
@@ -50,6 +51,18 @@ function BreakfastList(props) {
               <RecipeItem/>
             </GridItem>
             
+            <GridItem className = 'Recipe1' bg = '#F2E4D3'
+              _hover={{ cursor: 'pointer' }}
+              style={{
+                marginTop: '30px',
+                height: '200px',
+                width: '350px',
+                minWidth: '250px',
+                borderRadius: '32px',
+              }}
+              onClick={() => onNavigate('VoiceRecognition')}>
+                <RecipeItem/>
+            </GridItem>
             <GridItem className = 'Recipe1' bg = '#F2E4D3'
               _hover={{ cursor: 'pointer' }}
               style={{

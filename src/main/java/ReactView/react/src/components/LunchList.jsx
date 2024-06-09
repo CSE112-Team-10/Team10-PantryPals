@@ -26,6 +26,7 @@ function LunchList(props) {
         <Text
           color='#856454'
           className='title'
+          marginRight='47px'
           marginTop='20px'
           fontSize='50px'>
           Lunch recipes
