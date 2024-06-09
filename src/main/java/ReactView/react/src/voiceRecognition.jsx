@@ -64,16 +64,18 @@ const VoiceRecognition = (props) => {
             fontSize='40px'>
             State Recipe Ingredients
           </Text>
-          <img
-            src={listening ? '/mic.png' : '/micmuted.png'}
-            alt='Microphone Icon'
-            style={{
-              width: '200px',
-              height: '200px',
-              cursor: 'pointer',
-            }}
-            onClick={handleClick}
-          />
+          <Flex justify='center'> {/* Centering the image */}
+            <img
+              src={listening ? '/mic.png' : '/micmuted.png'}
+              alt='Microphone Icon'
+              style={{
+                width: '200px',
+                height: '200px',
+                cursor: 'pointer',
+              }}
+              onClick={handleClick}
+            />
+          </Flex>
           <Stack direction='row' justify='center'>
             <Button colorScheme='red' size='sm' onClick={resetTranscript}>
               Reset
@@ -85,13 +87,6 @@ const VoiceRecognition = (props) => {
               Generate
             </Button>
           </Stack>
-          <Button size='sm'>Customize</Button>
-          <Button size='sm' onClick={startListening}>
-            Start Listening
-          </Button>
-          <Button size='sm' onClick={stopListening}>
-            Stop Listening
-          </Button>
           <Text align='center' fontSize='14px' fontWeight={600}>
             Microphone: {listening ? 'on' : 'off'}
           </Text>
