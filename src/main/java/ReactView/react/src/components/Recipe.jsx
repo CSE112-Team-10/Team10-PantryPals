@@ -62,7 +62,7 @@ function Recipe({ isOpen, onClose, recipe }) {
                 ))}
               </OrderedList>
             </VStack>
-            <Box maxW='sm' borderWidth='10px' borderRadius='lg' overflow='hidden' margin='59px' borderColor='#A58375'>
+            <Box maxW='sm' borderWidth='15px' borderRadius='lg' overflow='hidden' margin='59px' borderColor='#A58375'>
               <Image src={recipe.image} alt={recipe.name} objectFit="cover" boxSize={'400px'}/>
             </Box>
           </HStack>
