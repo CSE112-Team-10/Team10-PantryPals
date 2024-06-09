@@ -11,7 +11,7 @@ import {
   ModalCloseButton,
   Button,
   Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
 import Recipe from '../components/Recipe';
 import recipes from '../recipes.json';
@@ -30,16 +30,20 @@ function TestPage() {
   };
 
   return (
-      <div>
-        {recipes.recipes.map((recipe, index) => (
-          <Button key={index} onClick={() => handleOpen(recipe)}>
-            Show {recipe.name} Recipe
-          </Button>
-        ))}
-        {selectedRecipe && (
-          <Recipe isOpen={isModalOpen} onClose={handleClose} recipe={selectedRecipe} />
-        )}
-      </div>
+    <div>
+      {recipes.recipes.map((recipe, index) => (
+        <Button key={index} onClick={() => handleOpen(recipe)}>
+          Show {recipe.name} Recipe
+        </Button>
+      ))}
+      {selectedRecipe && (
+        <Recipe
+          isOpen={isModalOpen}
+          onClose={handleClose}
+          recipe={selectedRecipe}
+        />
+      )}
+    </div>
   );
 }
 
