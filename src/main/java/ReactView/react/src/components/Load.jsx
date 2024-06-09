@@ -18,7 +18,7 @@ function Load() {
                     <img src="/loading.gif" width="300"/>
                     <Text 
                     color='#856454' 
-                    className='title2' 
+                    className='title'
                     align='center'
                     marginTop='20px'
                     fontSize='30px'

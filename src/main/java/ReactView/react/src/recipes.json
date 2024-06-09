@@ -3,6 +3,9 @@
       {
         "name": "Fried Eggs",
         "image": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Fried_Egg_2.jpg",
+        "servings": 1,
+        "difficulty": "Easy",
+        "time": "10 min",
         "ingredients": [
           "2 Eggs",
           "1 Tablespoon Oil"
@@ -18,6 +21,9 @@
       {
         "name": "Pancakes",
         "image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Blueberry_pancakes_%281%29.jpg",
+        "servings": 4,
+        "difficulty": "Medium",
+        "time": "20 min",
         "ingredients": [
           "1 cup All-Purpose Flour",
           "2 Tablespoons Sugar",
@@ -39,6 +45,9 @@
       {
         "name": "Spaghetti Carbonara",
         "image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Spaghetti_alla_Carbonara.jpg",
+        "servings": 2,
+        "difficulty": "Medium",
+        "time": "25 min",
         "ingredients": [
           "200g Spaghetti",
           "100g Pancetta",
@@ -64,6 +73,9 @@
       {
         "name": "Caesar Salad",
         "image": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Caesar_salad_%282%29.jpg",
+        "servings": 4,
+        "difficulty": "Easy",
+        "time": "15 min",
         "ingredients": [
           "1 Large Romaine Lettuce",
           "1/2 cup Croutons",
@@ -83,6 +95,9 @@
       {
         "name": "Chocolate Chip Cookies",
         "image": "https://upload.wikimedia.org/wikipedia/commons/6/69/Chocolate_Chip_Cookies_-_kimberlykv.jpg",
+        "servings": 24,
+        "difficulty": "Easy",
+        "time": "30 min",
         "ingredients": [
           "1 cup Unsalted Butter",
           "1 cup White Sugar",
