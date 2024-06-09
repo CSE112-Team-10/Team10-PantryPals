@@ -18,7 +18,9 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-function Recipe({ isOpen, onClose, recipe }) {
+function Recipe(props) {
+  const { isOpen, onClose, recipe } = props;
+  
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='xl' isCentered>
       <ModalOverlay />

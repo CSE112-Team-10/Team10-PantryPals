@@ -12,6 +12,7 @@ import BreakfastList from '../components/BreakfastList';
 import LunchList from '../components/LunchList';
 import DinnerList from '../components/DinnerList';
 import './styles.css';
+import Recipe from '../components/Recipe';
 
 const basepath = import.meta.env.BASE_URL;
 
@@ -24,6 +25,7 @@ function HomePage() {
   const [login, setLogin] = useState(['', '']);
   const [display, setDisplay] = useState('none');
   const [bookDisplay, setBookDisplay] = useState('flex'); 
+  const [modal, set_modal] = useState(false);
 
   {/* for images and texts in recipes to hide*/}
 
@@ -56,6 +58,11 @@ function HomePage() {
     setBookDisplay('none');
     setCurrentPage('DinnerList');
   }
+  
+  const handleModal = () => {
+    set_modal(!modal)
+  }
+  
 
   const renderPage = () => {
     switch (currentPage) {
@@ -71,6 +78,8 @@ function HomePage() {
         return <Load onNavigate={navigateTo} />;
       case 'OutputtedRecipe':
         return <OutputtedRecipe onNavigate={navigateTo} />;
+      case 'Recipe':
+        return <Recipe onNavigate={navigateTo} isOpen={modal} onClose={handleModal} />;
       case 'BreakfastList':
         return <BreakfastList onNavigate={navigateTo} />;
       case 'LunchList':
