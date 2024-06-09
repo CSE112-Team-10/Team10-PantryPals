@@ -108,6 +108,22 @@ function HomePage() {
 
   return (
     <Flex width='100vw' height='100vh' align='center' justify='center'>
+      {(currentPage == 'BreakfastList' || currentPage == 'LunchList' || currentPage == 'DinnerList') && (
+        <Box
+          className='back'
+          position='absolute'
+          top='50px'
+          left='50px'
+          backgroundColor='#F2D9BB'
+          color='#8F6152'
+          display='flex'
+          justifyContent='left'
+          _hover={{ cursor: 'pointer' }}
+          fontWeight='600'
+          onClick={handleBackClick}>
+          Back
+        </Box>
+      )}
       <Box
         className='title4'
         position='absolute'
@@ -191,7 +207,7 @@ function HomePage() {
         onClick={handleLogoutClick}>
         Log Out
       </Box>
-      {currentPage !== 'home' && (
+      {currentPage !== 'home' && currentPage !== 'BreakfastList' && currentPage !== 'LunchList' && currentPage !== 'DinnerList' && (
         <Box
           className='title4'
           position='absolute'
