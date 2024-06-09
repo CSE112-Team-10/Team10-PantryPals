@@ -7,6 +7,7 @@ import VoiceRecognition from '../voiceRecognition';
 import Sidebar from '../components/Sidebar';
 import NewRecipe from '../components/NewRecipe';
 import OutputtedRecipe from '../components/OutputtedRecipe';
+import BreakfastList from '../components/BreakfastList';
 import './styles.css';
 
 const basepath = import.meta.env.BASE_URL;
@@ -19,16 +20,29 @@ function HomePage() {
   const [password, setPassword] = useState(null);
   const [login, setLogin] = useState(['', '']);
   const [display, setDisplay] = useState('none');
+  const [bookDisplay, setBookDisplay] = useState('flex'); 
+
+  {/* for images and texts in recipes to hide*/}
+  const [imageState, newImageState] = useState('block');
+  const [textState, newTextState] = useState('block');
+
+
   const navigate = useNavigate();
 
   const navigateTo = (page) => {
-    setCurrentPage(page);
     setDisplay('none');
+    setCurrentPage(page);
   };
 
   function handleRecipePreview() {
     if (display == 'none') setDisplay('flex');
     else setDisplay('none'); 
+  }
+
+  function handleBreakfastBook() {
+    setDisplay('none');
+    setBookDisplay('none');
+    setCurrentPage('BreakfastList');
   }
 
   const renderPage = () => {
@@ -43,6 +57,8 @@ function HomePage() {
         return <NewRecipe onNavigate={navigateTo} />;
       case 'OutputtedRecipe':
         return <OutputtedRecipe onNavigate={navigateTo} />;
+      case 'BreakfastList':
+        return <BreakfastList onNavigate={navigateTo} />;
       default:
         return <HomePage onNavigate={navigateTo} />;
     }
@@ -53,13 +69,16 @@ function HomePage() {
   }
 
   function handleBackClick() {
+    setBookDisplay('flex');
     setDisplay('none');
     if (currentPage == 'MealTypeSelect') setCurrentPage('home');
-    else if (currentPage == 'VoiceRecognition')
-      setCurrentPage('MealTypeSelect');
+    else if (currentPage == 'VoiceRecognition') setCurrentPage('MealTypeSelect');
     else if (currentPage == 'NewRecipe') setCurrentPage('VoiceRecognition');
-    else if (currentPage == 'OutputtedRecipe')
-      setCurrentPage('VoiceRecognition');
+    else if (currentPage == 'OutputtedRecipe') setCurrentPage('VoiceRecognition');
+    else if (currentPage == 'BreakfastList' || currentPage == 'LunchList' || currentPage == 'DinnerList') {
+      setCurrentPage('MealTypeSelect');
+      setDisplay('flex');
+    }
   }
 
   const handleSubmit = (event) => {
@@ -77,7 +96,7 @@ function HomePage() {
         left='50px'
         backgroundColor='#F2D9BB'
         color='#8F6152'
-        display='flex'
+        display={bookDisplay}
         justifyContent='left'
         _hover={{ cursor: 'pointer' }}
         onClick={handleRecipePreview}
@@ -94,6 +113,7 @@ function HomePage() {
         display={display}
         justifyContent='left'
         _hover={{ cursor: 'pointer' }}
+        onClick={handleBreakfastBook}
         fontWeight='600'
         fontSize='25'>
         BREAKFAST
@@ -122,6 +142,7 @@ function HomePage() {
         display={display}
         justifyContent='left'
         _hover={{ cursor: 'pointer' }}
+        // onClick={DinnerList}
         fontWeight='600'
         fontSize='25'>
         DINNER
