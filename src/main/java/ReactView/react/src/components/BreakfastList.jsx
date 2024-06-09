@@ -58,7 +58,7 @@ function BreakfastList(props) {
                 borderRadius: '32px',
               }}
               onClick={() => onNavigate('VoiceRecognition')}>
-                <RecipeItem/>
+              <RecipeItem/>
             </GridItem>
             
             <GridItem className = 'Recipe1' bg = '#F2E4D3'

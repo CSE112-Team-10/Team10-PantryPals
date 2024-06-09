@@ -16,52 +16,55 @@ import '../pages/styles.css';
 
 function RecipeItem(props) {
 
-    const [imageState, newImageState] = useState('block');
-    const [textState, newTextState] = useState('none');
-    
-    function handleImageState() {
-        if (imageState == 'block') {
-            newImageState('none'); 
-            newTextState('block'); 
-        }
-        else {
-            newImageState('block'); 
-            newTextState('none'); 
-        }
+    const [isHovered, setIsHovered] = useState(false);
+
+    function handleMouseEnter() {
+        setIsHovered(true);
     }
+
+    function handleMouseLeave() {
+        setIsHovered(false);
+    }   
 
     return (
         <VStack spacing={2}>
             <Box 
-                className = 'recipeImage' 
-                justifyContent='center' 
-                marginBottom='-12'
-                onMouseEnter={() => handleImageState()} 
-                onMouseLeave={() => handleImageState()}
+                className='recipeImage'
+                justifyContent='center'
+                marginTop='4'
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 cursor='pointer'
+                position='relative'
+                width='320px'
+                height='170px'
             >
                     <img
                         src='/chickenQueso.webp'
-                        alt='Logo'
+                        alt='Chicken Quesadilla'
                         style={{
-                            width: '320px',
-                            height: '170px',
-                            marginTop: '15px',
-                            display: imageState,
+                            width: '100%',
+                            height: '100%',
                             borderRadius: '32px',
+                            display: isHovered ? 'none' : 'block',
                         }}
                     />
+                    <Text
+                        color='#856454'
+                        className='title4'
+                        align='center'
+                        fontSize='30px'
+                        font='canva sans'
+                        position='absolute'
+                        top='50%'
+                        left='50%'
+                        transform='translate(-50%, -50%)'
+                        display={isHovered ? 'block' : 'none'}
+                    >
+                        Chicken Quesadilla
+                    </Text>
             </Box>
-            <Text
-                color='#856454'
-                className='title4'
-                align='center'
-                fontSize='30px'
-                font = 'canva sans'
-                marginTop= '120px'
-                display= {textState}>
-                Chicken Quesadilla
-            </Text>
+            
         </VStack>
     )
 }
