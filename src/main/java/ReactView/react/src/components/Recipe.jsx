@@ -26,43 +26,53 @@ function Recipe({ isOpen, onClose, recipe }) {
         <ModalCloseButton />
         <ModalBody>
           <HStack align="center">
-            <VStack align="start" spacing={4} flex="1">
-              <Text align='left' fontSize='50px' fontWeight={700}>
+            <VStack align="start" spacing={2} flex="1">
+              <Text align='left' fontSize='60px' fontWeight={1000} color={'#A58375'} className='title'>
                 {recipe.name}
               </Text>
-              <Text align='left' fontSize='18px' fontWeight={500}>
-                Servings: {recipe.servings} | Difficulty: {recipe.difficulty} | Time: {recipe.time}
-              </Text>
-              <Text fontSize='18px' fontWeight={500}>
+              <HStack align='left' fontSize='18px' fontWeight={500} color='#A58375'>
+                <Text fontSize='20px' fontWeight={7} color={'#A58375'} className='title'>Servings:</Text>
+                <Text>{recipe.servings}</Text>
+                <Text fontSize='20px' fontWeight={7} color={'#A58375'} className='title'>Difficulty:</Text>
+                <Text >{recipe.difficulty}</Text>
+                <Text fontSize='20px' fontWeight={7} color={'#A58375'} className='title'>Time:</Text>
+                <Text>{recipe.time}</Text>
+              </HStack>
+              <Text fontSize='28px' fontWeight={500} color={'#A58375'} className='title'>
                 Ingredients:
               </Text>
-              <VStack align="start" spacing={1}>
+              <VStack align="start" color={'#A58375'}>
                 {recipe.ingredients.map((ingredient, index) => (
-                  <Text fontSize='16px' key={index}>
-                    • {ingredient}
-                  </Text>
+                  <HStack>
+                    <Text fontSize='20px' fontWeight={7} color={'#A58375'} className='title'>
+                      •
+                    </Text>
+                    <Text fontSize='18px' key={index}>
+                      {ingredient}
+                    </Text>
+                  </HStack>
                 ))}
               </VStack>
-              <Text fontSize='18px' fontWeight={500} mt='1rem'>
+              <Text fontSize='28px' fontWeight={500} mt='1rem' color={'#A58375'} className='title'>
                 Instructions:
               </Text>
-              <OrderedList spacing={2} mt='0.5rem'>
+              <OrderedList mt='0.5rem'>
                 {recipe.instructions.map((instruction, index) => (
-                  <ListItem key={index}>{instruction}</ListItem>
+                  <ListItem key={index} color={'#A58375'} fontSize='18px'>{instruction}</ListItem>
                 ))}
               </OrderedList>
             </VStack>
-            <Box maxW='sm' borderWidth='10px' borderRadius='lg' overflow='hidden' margin='59px' borderColor='#A58375'>
+            <Box maxW='sm' borderWidth='15px' borderRadius='lg' overflow='hidden' margin='59px' borderColor='#A58375'>
               <Image src={recipe.image} alt={recipe.name} objectFit="cover" boxSize={'400px'}/>
             </Box>
           </HStack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='green' width={'200px'} margin={'5px'}>
-            Regenerate
+          <Button colorScheme='green' onClick={onClose} width={'200px'} margin={'5px'}>
+            Save
           </Button>
-          <Button colorScheme='red' onClick={onClose}width={'200px'} margin={'5px'}>
-            Close
+          <Button colorScheme='red' width={'200px'} margin={'5px'}>
+            Regenerate
           </Button>
         </ModalFooter>
       </ModalContent>
