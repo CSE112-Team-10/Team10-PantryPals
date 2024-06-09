@@ -12,8 +12,10 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
 import './styles.css';
+import { AccountManager } from '../../../../../../api/AccountManager';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -21,25 +23,99 @@ function LoginPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [login, setLogin] = useState(['', '']);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const usernameEmpty = isSubmitted && username === '';
   const passwordEmpty = isSubmitted && password === '';
 
-  function handleLoginClick(e) {
-    /*Additional Login logic here*/
+  async function handleLoginClick(e, toast) {
     e.preventDefault();
-    setIsSubmitted(true);
-    if (username && password) {
-      navigate('/home');
+    
+    if(username === '' || password === '') {
+      return;
+    }
+
+    const toast_id = toast({
+      title: 'Loading',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
+
+    try {
+      const result = await AccountManager({ method: 'verify', username:username, password:password});      
+
+      if (result == '1' && username && password) {
+        toast.update(toast_id, {
+          title: 'Login Successful',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate('/home');
+      } else {
+        toast.update(toast_id,{
+          title: 'Username or Password incorrect',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast.update(toast_id,{
+        title: 'Login failed',
+        description: error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
 
-  function handleCreateAccountClick(e) {
-    /*Additional Create Account logic here*/
+  async function handleCreateAccountClick(e) {
     e.preventDefault();
     setIsSubmitted(true);
-    if (username && password) {
-      navigate('/home');
+
+    if(username === '' || password === '') {
+      console.log('test');
+      return;
+    }
+
+    const toast_id = toast({
+      title: 'Loading',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
+
+    try {
+      const result = await AccountManager({ method: 'addUser', username:username, password:password});
+
+      if (result != '-1' && username && password) {
+        toast.update(toast_id, {
+          title: 'Account created',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate('/home');
+      } else {
+        toast.update(toast_id, {
+          title: 'Username already exists',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+        console.log(result);
+      }
+    } catch (error) {
+      toast.update(toast_id, {
+        title: 'Login failed',
+        description: error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
 
@@ -119,7 +195,8 @@ function LoginPage() {
               size='md'
               color='white'
               backgroundColor='#856454'
-              onClick={handleLoginClick}>
+              onClick={(e) => handleLoginClick(e, toast)}
+            >
               Sign In
             </Button>
             <Button
@@ -127,7 +204,7 @@ function LoginPage() {
               size='md'
               color='white'
               backgroundColor='#856454'
-              onClick={handleCreateAccountClick}>
+              onClick={(e) => handleCreateAccountClick(e, toast)}>
               Sign Up
             </Button>
           </Stack>
