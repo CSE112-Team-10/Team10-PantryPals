@@ -13,6 +13,7 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import '../pages/styles.css';
+import RecipeItem from './RecipeItem';
 
 let numRecipes = 1; 
 
@@ -49,8 +50,6 @@ function BreakfastList(props) {
           {/* recipe object */}
             <GridItem className = 'Recipe1' bg = '#F2E4D3'
               _hover={{ cursor: 'pointer' }}
-              onMouseEnter={() => handleImageState()}
-              onMouseLeave={() => handleImageState()}    
               style={{
                 marginTop: '30px',
                 height: '200px',
@@ -59,33 +58,20 @@ function BreakfastList(props) {
                 borderRadius: '32px',
               }}
               onClick={() => onNavigate('VoiceRecognition')}>
-              <VStack spacing={2}>
-                <Box className = 'recipeImage' 
-                    justifyContent='center' 
-                    marginBottom='-12'>
-                  <img
-                    src='/chickenQueso.webp'
-                    alt='Logo'
-                    style={{
-                      width: '320px',
-                      height: '170px',
-                      marginTop: '15px',
-                      display: imageState,
-                      borderRadius: '32px',
-                    }}
-                  />
-                </Box>
-                <Text
-                  color='#856454'
-                  className='title4'
-                  align='center'
-                  fontSize='30px'
-                  font = 'canva sans'
-                  marginTop= '120px'
-                  display= {textState}>
-                  Chicken Quesadilla
-                </Text>
-              </VStack>
+                <RecipeItem/>
+            </GridItem>
+            
+            <GridItem className = 'Recipe1' bg = '#F2E4D3'
+              _hover={{ cursor: 'pointer' }}
+              style={{
+                marginTop: '30px',
+                height: '200px',
+                width: '350px',
+                minWidth: '250px',
+                borderRadius: '32px',
+              }}
+              onClick={() => onNavigate('VoiceRecognition')}>
+                <RecipeItem/>
             </GridItem>
         </Grid> 
       </VStack>
