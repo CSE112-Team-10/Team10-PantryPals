@@ -12,6 +12,7 @@ import BreakfastList from '../components/BreakfastList';
 import LunchList from '../components/LunchList';
 import DinnerList from '../components/DinnerList';
 import './styles.css';
+import Recipe from '../components/Recipe';
 
 const basepath = import.meta.env.BASE_URL;
 
@@ -24,8 +25,11 @@ function HomePage() {
   const [login, setLogin] = useState(['', '']);
   const [display, setDisplay] = useState('none');
   const [bookDisplay, setBookDisplay] = useState('flex'); 
+  const [modal, set_modal] = useState(false);
 
-  {/* for images and texts in recipes to hide*/}
+  {
+    /* for images and texts in recipes to hide*/
+  }
 
   const navigate = useNavigate();
 
@@ -36,7 +40,7 @@ function HomePage() {
 
   function handleRecipePreview() {
     if (display == 'none') setDisplay('flex');
-    else setDisplay('none'); 
+    else setDisplay('none');
   }
 
   function handleBreakfastBook() {
@@ -56,6 +60,11 @@ function HomePage() {
     setBookDisplay('none');
     setCurrentPage('DinnerList');
   }
+  
+  const handleModal = () => {
+    set_modal(!modal)
+  }
+  
 
   const renderPage = () => {
     switch (currentPage) {
@@ -71,12 +80,14 @@ function HomePage() {
         return <Load onNavigate={navigateTo} />;
       case 'OutputtedRecipe':
         return <OutputtedRecipe onNavigate={navigateTo} />;
+      case 'Recipe':
+        return <Recipe onNavigate={navigateTo} isOpen={modal} onClose={handleModal} />;
       case 'BreakfastList':
         return <BreakfastList onNavigate={navigateTo} />;
       case 'LunchList':
-          return <LunchList onNavigate={navigateTo} />;
+        return <LunchList onNavigate={navigateTo} />;
       case 'DinnerList':
-          return <DinnerList onNavigate={navigateTo} />;
+        return <DinnerList onNavigate={navigateTo} />;
       default:
         return <HomePage onNavigate={navigateTo} />;
     }
@@ -90,11 +101,17 @@ function HomePage() {
     setBookDisplay('flex');
     setDisplay('none');
     if (currentPage == 'MealTypeSelect') setCurrentPage('home');
-    else if (currentPage == 'VoiceRecognition') setCurrentPage('MealTypeSelect');
+    else if (currentPage == 'VoiceRecognition')
+      setCurrentPage('MealTypeSelect');
     else if (currentPage == 'NewRecipe') setCurrentPage('VoiceRecognition');
     else if (currentPage == 'Load') setCurrentPage('VoiceRecognition');
-    else if (currentPage == 'OutputtedRecipe') setCurrentPage('VoiceRecognition');
-    else if (currentPage == 'BreakfastList' || currentPage == 'LunchList' || currentPage == 'DinnerList') {
+    else if (currentPage == 'OutputtedRecipe')
+      setCurrentPage('VoiceRecognition');
+    else if (
+      currentPage == 'BreakfastList' ||
+      currentPage == 'LunchList' ||
+      currentPage == 'DinnerList'
+    ) {
       setCurrentPage('MealTypeSelect');
       setDisplay('flex');
     }
@@ -189,10 +206,9 @@ function HomePage() {
         display={display}
         top='100px'
         left='70px'
-        width= '4px'
+        width='4px'
         backgroundColor='#8F6152'
-        height= '120px'>
-      </Box>
+        height='120px'></Box>
       <Box
         className='title4'
         position='absolute'

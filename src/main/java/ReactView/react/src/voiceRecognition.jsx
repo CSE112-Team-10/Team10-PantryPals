@@ -85,7 +85,7 @@ const VoiceRecognition = ({ onNavigate }) => {
             <Button
               colorScheme='green'
               size='sm'
-              onClick={() => onNavigate('OutputtedRecipe')}>
+              onClick={() => onNavigate('Recipe')}>
               Generate
             </Button>
           </Stack>
