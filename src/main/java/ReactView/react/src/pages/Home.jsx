@@ -9,6 +9,8 @@ import NewRecipe from '../components/NewRecipe';
 import OutputtedRecipe from '../components/OutputtedRecipe';
 import Load from '../components/Load';
 import BreakfastList from '../components/BreakfastList';
+import LunchList from '../components/LunchList';
+import DinnerList from '../components/DinnerList';
 import './styles.css';
 
 const basepath = import.meta.env.BASE_URL;
@@ -24,9 +26,6 @@ function HomePage() {
   const [bookDisplay, setBookDisplay] = useState('flex'); 
 
   {/* for images and texts in recipes to hide*/}
-  const [imageState, newImageState] = useState('block');
-  const [textState, newTextState] = useState('block');
-
 
   const navigate = useNavigate();
 
@@ -46,6 +45,18 @@ function HomePage() {
     setCurrentPage('BreakfastList');
   }
 
+  function handleLunchBook() {
+    setDisplay('none');
+    setBookDisplay('none');
+    setCurrentPage('LunchList');
+  }
+
+  function handleDinnerBook() {
+    setDisplay('none');
+    setBookDisplay('none');
+    setCurrentPage('DinnerList');
+  }
+
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
@@ -62,6 +73,10 @@ function HomePage() {
         return <OutputtedRecipe onNavigate={navigateTo} />;
       case 'BreakfastList':
         return <BreakfastList onNavigate={navigateTo} />;
+      case 'LunchList':
+          return <LunchList onNavigate={navigateTo} />;
+      case 'DinnerList':
+          return <DinnerList onNavigate={navigateTo} />;
       default:
         return <HomePage onNavigate={navigateTo} />;
     }
@@ -132,6 +147,7 @@ function HomePage() {
         display={display}
         justifyContent='left'
         _hover={{ cursor: 'pointer' }}
+        onClick={handleLunchBook}
         fontWeight='600'
         fontSize='25'>
         LUNCH
@@ -146,7 +162,7 @@ function HomePage() {
         display={display}
         justifyContent='left'
         _hover={{ cursor: 'pointer' }}
-        // onClick={DinnerList}
+        onClick={handleDinnerBook}
         fontWeight='600'
         fontSize='25'>
         DINNER

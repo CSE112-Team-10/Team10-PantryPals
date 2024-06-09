@@ -17,10 +17,7 @@ import RecipeItem from './RecipeItem';
 
 let numRecipes = 1; 
 
-function BreakfastList(props) {
-
-  const [imageState, newImageState] = useState('block');
-  const [textState, newTextState] = useState('none');
+function LunchList(props) {
   
   const { onNavigate } = props;
   return (
@@ -31,7 +28,7 @@ function BreakfastList(props) {
           className='title'
           marginTop='20px'
           fontSize='50px'>
-          Breakfast Recipes
+          Lunch recipes
         </Text>
 
       {/* will hold all the recipes in this Box */}
@@ -68,4 +65,4 @@ function BreakfastList(props) {
   );
 }
 
-export default BreakfastList;
+export default LunchList;
