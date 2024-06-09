@@ -21,8 +21,7 @@ function MealTypeSelectScreen(props) {
             align='center'
             marginTop='-0.5em'
             marginBottom='0.5em'
-            fontSize='40px'
-            fontWeight={600}>
+            fontSize='40px'>
             Select Meal Type
           </Text>
           <HStack align='center' justifyContent='center'>

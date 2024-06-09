@@ -19,11 +19,18 @@ function HomePage() {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [login, setLogin] = useState(['', '']);
+  const [display, setDisplay] = useState('none');
   const navigate = useNavigate();
 
   const navigateTo = (page) => {
     setCurrentPage(page);
+    setDisplay('none');
   };
+
+  function handleRecipePreview() {
+    if (display == 'none') setDisplay('flex');
+    else setDisplay('none'); 
+  }
 
   const renderPage = () => {
     switch (currentPage) {
@@ -49,6 +56,7 @@ function HomePage() {
   }
 
   function handleBackClick() {
+    setDisplay('none');
     if (currentPage == 'MealTypeSelect') setCurrentPage('home');
     else if (currentPage == 'VoiceRecognition')
       setCurrentPage('MealTypeSelect');
@@ -76,8 +84,61 @@ function HomePage() {
         display='flex'
         justifyContent='left'
         _hover={{ cursor: 'pointer' }}
+        onClick={handleRecipePreview}
         fontWeight='600'>
         Recipe Book
+      </Box>
+      <Box
+        className='breakfast'
+        position='absolute'
+        top='100px'
+        left='90px'
+        backgroundColor='#F2D9BB'
+        color='#A58375'
+        display={display}
+        justifyContent='left'
+        _hover={{ cursor: 'pointer' }}
+        fontWeight='600'
+        fontSize='25'>
+        BREAKFAST
+      </Box>
+      <Box
+        className='lunch'
+        position='absolute'
+        top='140px'
+        left='90px'
+        backgroundColor='#F2D9BB'
+        color='#A58375'
+        display={display}
+        justifyContent='left'
+        _hover={{ cursor: 'pointer' }}
+        fontWeight='600'
+        fontSize='25'>
+        LUNCH
+      </Box>
+      <Box
+        className='dinner'
+        position='absolute'
+        top='180px'
+        left='90px'
+        // backgroundColor='#F2D9BB'
+        color='#A58375'
+        display={display}
+        justifyContent='left'
+        _hover={{ cursor: 'pointer' }}
+        fontWeight='600'
+        fontSize='25'>
+        DINNER
+      </Box>
+      <Box
+        className='rectangle'
+        position='absolute'
+        display={display}
+        top='100px'
+        left='70px'
+        width= '4px'
+        backgroundColor='#8F6152'
+        height= '120px'>
       </Box>
       <Box
         className='title4'
