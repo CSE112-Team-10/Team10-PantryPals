@@ -18,8 +18,8 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { DalleE } from '../../../../../../api/DalleE';
-import { RecipeManager } from '../../../../../../api/RecipeManager';
+import { DalleE } from '../api/DalleE';
+import { RecipeManager } from '../api/RecipeManager';
 
 function Recipe(props) {
   const { onNavigate, isOpen, onClose, recipe, number_of_servin, difficulty, cook_time, username, is_new_recipe } = props;

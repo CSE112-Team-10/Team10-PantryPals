@@ -15,7 +15,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import './styles.css';
-import { AccountManager } from '../../../../../../api/AccountManager';
+import { AccountManager } from '../api/AccountManager';
 
 function LoginPage() {
   

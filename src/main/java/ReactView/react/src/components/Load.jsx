@@ -8,9 +8,9 @@ import {
     Button,
   } from '@chakra-ui/react';
 import '../pages/styles.css';
-import { ChatGPT } from '../../../../../../api/ChatGPT';
+import { ChatGPT } from '../api/ChatGPT';
 import { useEffect, useState } from 'react';
-import { DalleE } from '../../../../../../api/DalleE';
+import { DalleE } from '../api/DalleE';
 
 
 function Load(props) {
