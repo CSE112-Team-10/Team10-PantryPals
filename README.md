@@ -40,4 +40,4 @@ npm run dev
 ```
 
 ## Contributing
-Feel free to open issues or submit pull requests. For major changes, please discuss member in advance to ensure they align with the project's goals.
+Feel free to open issues or submit pull requests. For major changes, please discuss with members in advance to ensure they align with the project's goals.
