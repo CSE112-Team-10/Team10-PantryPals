@@ -52,6 +52,11 @@ const VoiceRecognition = ({ onNavigate }) => {
     setUserInput(event.target.value);
   };
 
+  // Sync the transcript to the user input
+  useEffect(() => {
+    setUserInput(transcript);
+  }, [transcript]);
+
   // Render the component UI
   return (
     <Flex align='center' justify='center' width='full' height='full'>
@@ -85,21 +90,21 @@ const VoiceRecognition = ({ onNavigate }) => {
             <Button
               colorScheme='green'
               size='sm'
-              onClick={() => onNavigate('Recipe')}>
+              onClick={() => onNavigate('OutputtedRecipe')}>
               Generate
             </Button>
           </Stack>
           <Text align='center' fontSize='14px' fontWeight={600}>
             Microphone: {listening ? 'on' : 'off'}
           </Text>
-          <Text align='center' fontSize='14px' fontWeight={600}>
-            {transcript}
-          </Text>
           <Input
-            placeholder='Type your request here'
+            placeholder='Type your ingredients here'
             value={userInput}
             onChange={handleInputChange}
             marginTop='1em'
+            borderColor='#856454'
+            borderWidth='2px'
+            _focus={{ borderColor: '#856454' }}
           />
         </Stack>
       </Container>
