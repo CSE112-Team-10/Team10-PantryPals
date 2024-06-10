@@ -4,7 +4,6 @@ import { Box, HStack, Flex, Button } from '@chakra-ui/react';
 import WelcomePage from '../components/WelcomePage';
 import MealTypeSelectPage from '../components/MealTypeSelectPage';
 import VoiceRecognition from '../components/voiceRecognition';
-import Sidebar from '../components/Sidebar';
 import NewRecipe from '../components/NewRecipe';
 import OutputtedRecipe from '../components/OutputtedRecipe';
 import Load from '../components/Load';
@@ -13,12 +12,9 @@ import LunchList from '../components/LunchList';
 import DinnerList from '../components/DinnerList';
 import './styles.css';
 import Recipe from '../components/Recipe';
-import { AccountManager } from '../../../../../../api/AccountManager';
 import { RecipeManager } from '../../../../../../api/RecipeManager';
 
 const basepath = import.meta.env.BASE_URL;
-
-
 
 function HomePage() {
   const [recording, setRecording] = useState(false);
@@ -39,13 +35,8 @@ function HomePage() {
   const [is_new_recipe, set_is_new_recipe]=  useState(false);
   const location = useLocation();
   const log_info = location.state;
-  
-  {
-    /* for images and texts in recipes to hide*/
-  }
-
   const navigate = useNavigate();
-
+  
   const navigateTo = (page) => {
     setDisplay('none');
     setCurrentPage(page);

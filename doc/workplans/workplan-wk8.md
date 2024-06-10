@@ -30,54 +30,58 @@ Did not complete fully so these remain the same.
 - As a user, I want the app to be a web app so that I can access the account across all my devices
   - Essentially same story but from two perspectives
 
-- As a user, I want the app to be intuitive and simple to use so that I can fulfill my needs of finding and using a recipe easily.
-
 New:
-- As a chef(user), I want to know that the recipe generated is safe for consumption so that I do not become sick from eating the dish.
-
+- As a chef(user), I want to be able to add specifications to the recipe so that I can further tailor the resulting recipe to suit my needs
+- As a user, I want the app to be intuitive and simple to use so that I can fulfill my needs of finding and using a recipe easily.
 
 ## Tasks
 ### Backend
 TODO:
- - Implement safety mechanic
-    - Priority: med
-        - We want to check the safety(i.e. is it safe to consume) of generated recipes to ensure users are not harmed from the app
-    - Estimate: 8 hours
-        - We still need to decide how we will do this
+ - Convert Model's Java files to javascript
+    - Priority: High
+        - We plan to use AWS's lambda functions, which do not work with Java, to handle server requests 
+    - Estimate: 10 hours
+        - There are 4 files we will work on first (Recipe.java, ChatGPT.java, Dalle.java, AccountManager.java) as they are the bare minimum needed for the app to run
 
- - Create rest of lambda functions (Dalle)
-    - Priority: High
-        - Necessary for recipe image generation
+ - Allow for more inputs (add more ChatGPT prompts)
+    - Priority: high -> low
+        - We want to give users the ability to add further specifications to their recipe so they can better tailor the recipe to suit their needs
     - Estimate: 4 hours
-    
- - Connect Backend and Frontend
-    - Priority: High
-        - Necessary for the app to function
-    - Estimate: 6 hours
+        - One team member (Matthew) also worked on the app so he know how to modify the prompt.
+Done:
+ - Set up a AWS webserver 
+   - Priority: med
+     - We want to switch from Googiehost to AWS so that we can use the Java files of the project instead of refactoring to PHP.
+    - Estimate: 3 hours
+      - One team member (Karl) has experience with AWS
 
 
 ### Frontend
 TODO:
- - Start implementing mockups
-    - Priority: Med
-        - Focusing on UX
+ - Create a recipe display page in React
+   - Priority: High
+     - This is the final page we need for a MVP
+    - Estimate: 4 hours
+      - We have assigned Andrew and Daniel to this task but they are still unfamiliar with React so it may take some time
+    - Subtasks:
+      - Convert JavaFX UI to React
+
+ - Start implementing design decisions (Color palette, page layout/interaction)
+    - Priority: Med -> low
+        - Not necessary for the app to function but still important to the app
     - Estimate: 10 hours
         - Will be ongoing task for entire milestone
 
 ### Testing
+No new tasks as no new features added. Additionally, React view file not fully implemented yet.
 TODO:
- - Write unit and integration tests for lambda functions (recipe, dalle, accounts, ChatGPT)
-    - Priority: med
-        - Important to ensure correct function as they are key components of the app
-    - Estimate: 6 hours
-
  - Assist other teams with their tasks
-    - Priority: Low
+ - Priority: Low
    - Testing team members are not a key component to to either frontend or backend and should only do this task if nothing else to do 
   - Estimate: 4 hours
 
 ## Sequencing Information
-![Sequencing Information](https://github.com/CSE112-Team-10/Team10-PantryPals/blob/main/workplans/Sequencing-information-wk9.png "Sequencing Information")
+![Sequencing Information](https://github.com/CSE112-Team-10/Team10-PantryPals/blob/main/workplans/Sequencing-information-wk8.png "Sequencing Information")
 
 Our primary focus this week is to finish refactoring from JavaFX to React and to start implementing new features.
 

@@ -6,12 +6,12 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
 javafx {
-    version = '21.0.1'
+    version = '18.0.1'
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
@@ -29,6 +29,8 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     // This provides the JSON API.
     implementation "org.json:json:$jsonVersion"
+    // This provides the library for password encryption.
+    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.10.2'
 }
 
 sourceSets {
