@@ -119,6 +119,34 @@
           "Drop by large spoonfuls onto ungreased pans.",
           "Bake for about 10 minutes in the preheated oven, or until edges are nicely browned."
         ]
+      },
+      {
+        "name": "Pizzas",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/6/69/Chocolate_Chip_Cookies_-_kimberlykv.jpg",
+        "servings": 24,
+        "difficulty": "Easy",
+        "time": "30 min",
+        "ingredients": [
+          "1 cup Unsalted Butter",
+          "1 cup White Sugar",
+          "1 cup Brown Sugar",
+          "2 Large Eggs",
+          "2 teaspoons Vanilla Extract",
+          "3 cups All-Purpose Flour",
+          "1 teaspoon Baking Soda",
+          "1/2 teaspoon Baking Powder",
+          "1/2 teaspoon Salt",
+          "2 cups Semisweet Chocolate Chips"
+        ],
+        "instructions": [
+          "Preheat oven to 350 degrees F (175 degrees C).",
+          "Cream together the butter, white sugar, and brown sugar until smooth.",
+          "Beat in the eggs one at a time, then stir in the vanilla.",
+          "Dissolve baking soda in hot water. Add to batter along with salt.",
+          "Stir in flour, chocolate chips, and nuts.",
+          "Drop by large spoonfuls onto ungreased pans.",
+          "Bake for about 10 minutes in the preheated oven, or until edges are nicely browned."
+        ]
       }
     ]
   }

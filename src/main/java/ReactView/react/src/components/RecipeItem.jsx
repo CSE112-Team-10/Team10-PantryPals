@@ -11,10 +11,12 @@ import {
   VStack,
   Button,
   GridItem,
+  Image
 } from '@chakra-ui/react';
 import '../pages/styles.css';
 
-function RecipeItem(props) {
+
+function RecipeItem({ recipe }) {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -39,15 +41,15 @@ function RecipeItem(props) {
                 width='320px'
                 height='170px'
             >
-                    <img
-                        src='/chickenQueso.webp'
-                        alt='Chicken Quesadilla'
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            borderRadius: '32px',
-                            display: isHovered ? 'none' : 'block',
-                        }}
+                    <Image
+                    src={recipe.image}
+                    alt={recipe.name}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '32px',
+                        display: isHovered ? 'none' : 'block',
+                    }}
                     />
                     <Text
                         color='#856454'
@@ -61,7 +63,7 @@ function RecipeItem(props) {
                         transform='translate(-50%, -50%)'
                         display={isHovered ? 'block' : 'none'}
                     >
-                        Chicken Quesadilla
+                        {recipe.name}
                     </Text>
             </Box>
             

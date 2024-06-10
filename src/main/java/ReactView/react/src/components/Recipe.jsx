@@ -17,6 +17,8 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import React from 'react';
+import recipesData from '../recipes.json'; // Adjust the path as needed
+
 
 function Recipe(props) {
   const { isOpen, onClose, recipe } = props;
