@@ -18,6 +18,7 @@ import './styles.css';
 import { AccountManager } from '../../../../../../api/AccountManager';
 
 function LoginPage() {
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -47,12 +48,13 @@ function LoginPage() {
 
       if (result == '1' && username && password) {
         toast.update(toast_id, {
-          title: 'Login Successful',
+          title: 'Login successful',
           status: 'success',
           duration: 5000,
           isClosable: true,
         });
-        navigate('/home');
+        setUsername(username);
+        navigate('/home', {state: {username: username}});
       } else {
         toast.update(toast_id,{
           title: 'Username or Password incorrect',
@@ -77,7 +79,6 @@ function LoginPage() {
     setIsSubmitted(true);
 
     if(username === '' || password === '') {
-      console.log('test');
       return;
     }
 
@@ -89,7 +90,7 @@ function LoginPage() {
     });
 
     try {
-      const result = await AccountManager({ method: 'addUser', username:username, password:password});
+      const result = await AccountManager({ method: 'addUser', username:username});
 
       if (result != '-1' && username && password) {
         toast.update(toast_id, {
@@ -98,7 +99,8 @@ function LoginPage() {
           duration: 5000,
           isClosable: true,
         });
-        navigate('/home');
+        setUsername(username);
+        navigate('/home', {state: {username: username, password: password}});
       } else {
         toast.update(toast_id, {
           title: 'Username already exists',
@@ -106,11 +108,10 @@ function LoginPage() {
           duration: 5000,
           isClosable: true,
         });
-        console.log(result);
       }
     } catch (error) {
       toast.update(toast_id, {
-        title: 'Login failed',
+        title: 'Account creation failed',
         description: error,
         status: 'error',
         duration: 5000,

@@ -10,7 +10,8 @@ import {
 import '../pages/styles.css';
 
 function MealTypeSelectScreen(props) {
-  const { onNavigate } = props;
+  const { onNavigate, set_meal_type } = props;
+
   return (
     <Flex align='center' justify='center' width='full' height='full'>
       <Container minWidth='600px' maxWidth='1000px'>
@@ -34,7 +35,10 @@ function MealTypeSelectScreen(props) {
                 minWidth: '250px',
                 borderRadius: '32px',
               }}
-              onClick={() => onNavigate('VoiceRecognition')}>
+              onClick={() => {
+                set_meal_type('breakfast');
+                onNavigate('VoiceRecognition');
+              }}>
               <Stack spacing={2} marginTop='-12'>
                 <Box display='flex' justifyContent='center' marginBottom='-12'>
                   <img
@@ -67,7 +71,10 @@ function MealTypeSelectScreen(props) {
                 minWidth: '250px',
                 borderRadius: '32px',
               }}
-              onClick={() => onNavigate('VoiceRecognition')}>
+              onClick={() => {
+                set_meal_type('lunch');
+                onNavigate('VoiceRecognition');
+              }}>
               <Stack spacing={2} marginTop='-12'>
                 <Box display='flex' justifyContent='center' marginBottom='-12'>
                   <img
@@ -100,7 +107,10 @@ function MealTypeSelectScreen(props) {
                 minWidth: '250px',
                 borderRadius: '32px',
               }}
-              onClick={() => onNavigate('VoiceRecognition')}>
+              onClick={() => {
+                set_meal_type('dinner');
+                onNavigate('VoiceRecognition');
+              }}>
               <Stack spacing={2} marginTop='-12'>
                 <Box display='flex' justifyContent='center' marginBottom='-12'>
                   <img

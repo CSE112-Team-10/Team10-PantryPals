@@ -15,7 +15,7 @@ import {
 import '../pages/styles.css';
 
 function RecipeItem(props) {
-
+    const {recipe} = props;
     const [isHovered, setIsHovered] = useState(false);
 
     function handleMouseEnter() {
@@ -40,8 +40,8 @@ function RecipeItem(props) {
                 height='170px'
             >
                     <img
-                        src='/chickenQueso.webp'
-                        alt='Chicken Quesadilla'
+                        src= {recipe['imageURL']}
+                        alt= {recipe['recipeTitle']}
                         style={{
                             width: '100%',
                             height: '100%',
@@ -61,7 +61,7 @@ function RecipeItem(props) {
                         transform='translate(-50%, -50%)'
                         display={isHovered ? 'block' : 'none'}
                     >
-                        Chicken Quesadilla
+                        {recipe['recipeTitle']}
                     </Text>
             </Box>
             

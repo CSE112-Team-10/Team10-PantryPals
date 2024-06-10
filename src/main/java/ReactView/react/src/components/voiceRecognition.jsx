@@ -25,7 +25,8 @@ import {
  * a user interface to start and stop listening to the user's voice.
  * It also includes an input field for users to type their requests.
  */
-const VoiceRecognition = ({ onNavigate }) => {
+const VoiceRecognition = (props) => {
+  const { onNavigate, set_ingredients} = props;
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
   const [userInput, setUserInput] = useState('');
 
@@ -85,7 +86,10 @@ const VoiceRecognition = ({ onNavigate }) => {
             <Button
               colorScheme='green'
               size='sm'
-              onClick={() => onNavigate('Recipe')}>
+              onClick={() => {
+                set_ingredients(userInput.length > 0 ? userInput : transcript);
+                onNavigate('Load');
+              }}>
               Generate
             </Button>
           </Stack>
@@ -93,7 +97,7 @@ const VoiceRecognition = ({ onNavigate }) => {
             Microphone: {listening ? 'on' : 'off'}
           </Text>
           <Text align='center' fontSize='14px' fontWeight={600}>
-            {transcript}
+            {userInput.length > 0 ? userInput : transcript}
           </Text>
           <Input
             placeholder='Type your request here'

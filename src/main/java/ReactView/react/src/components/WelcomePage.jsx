@@ -2,7 +2,7 @@ import { Flex, Container, Stack, Button } from '@chakra-ui/react';
 import '../pages/styles.css';
 
 function WelcomeScreen(props) {
-  const { onNavigate } = props;
+  const { onNavigate, set_modal } = props;
   return (
     <Flex align='center' justify='center' width='full' height='full'>
       <Container
@@ -19,7 +19,11 @@ function WelcomeScreen(props) {
             backgroundColor='#8F6152'
             textColor='#F2F2F2'
             fontSize='1.5em'
-            onClick={() => onNavigate('MealTypeSelect')}>
+            onClick={() => {
+              set_modal(true);
+              onNavigate('MealTypeSelect');
+            }}
+            >
             Generate Recipe
           </Button>
         </Stack>
