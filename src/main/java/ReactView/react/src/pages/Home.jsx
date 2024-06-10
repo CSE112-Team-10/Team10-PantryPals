@@ -12,7 +12,7 @@ import LunchList from '../components/LunchList';
 import DinnerList from '../components/DinnerList';
 import './styles.css';
 import Recipe from '../components/Recipe';
-import { RecipeManager } from '../../../../../../api/RecipeManager';
+import { RecipeManager } from '../api/RecipeManager';
 
 const basepath = import.meta.env.BASE_URL;
 
