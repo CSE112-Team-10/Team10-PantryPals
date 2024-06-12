@@ -2,91 +2,211 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Flex,
+  Box,
   Container,
   Stack,
   Text,
   Input,
   Checkbox,
   Button,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
-
-import { AccountManager } from '../api/AccountManager.js';
+import './styles.css';
+import { AccountManager } from '../api/AccountManager';
 
 function LoginPage() {
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [login, setLogin] = useState(['', '']);
   const navigate = useNavigate();
+  const toast = useToast();
 
-  async function handleLoginClick(e) {
-    handleSubmit(e);
+  const usernameEmpty = isSubmitted && username === '';
+  const passwordEmpty = isSubmitted && password === '';
+
+  async function handleLoginClick(e, toast) {
+    e.preventDefault();
+    
+    if(username === '' || password === '') {
+      return;
+    }
+
+    const toast_id = toast({
+      title: 'Loading',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
+
     try {
-      const result = await AccountManager({ method: 'verify', username:username, password:password});
+      const result = await AccountManager({ method: 'verify', username:username, password:password});      
 
-      if (result == '\"1\"') {
-        navigate('/home');
+      if (result == '1' && username && password) {
+        toast.update(toast_id, {
+          title: 'Login successful',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        setUsername(username);
+        navigate('/home', {state: {username: username}});
+      } else {
+        toast.update(toast_id,{
+          title: 'Username or Password incorrect',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      toast.update(toast_id,{
+        title: 'Login failed',
+        description: error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
 
   async function handleCreateAccountClick(e) {
-    handleSubmit(e);
-    try {
-      const result = await AccountManager({ method: 'addUser', username:username, password:password});
+    e.preventDefault();
+    setIsSubmitted(true);
 
-      if (result != '\"-1\"') {
-        navigate('/home');
+    if(username === '' || password === '') {
+      return;
+    }
+
+    const toast_id = toast({
+      title: 'Loading',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
+
+    try {
+      const result = await AccountManager({ method: 'addUser', username:username});
+
+      if (result != '-1' && username && password) {
+        toast.update(toast_id, {
+          title: 'Account created',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        setUsername(username);
+        navigate('/home', {state: {username: username, password: password}});
+      } else {
+        toast.update(toast_id, {
+          title: 'Username already exists',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      toast.update(toast_id, {
+        title: 'Account creation failed',
+        description: error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setUsername('');
-    setPassword('');
-  };
+  function handleUsernameChange(e) {
+    setUsername(e.target.value);
+    setIsSubmitted(false);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+    setIsSubmitted(false);
+  }
 
   return (
     <Flex width='100vw' height='100vh' align='center' justify='center'>
-      <Container style={{ maxWidth: '300px' }}>
-        <Stack spacing={2}>
-          <Text align='center' fontSize='20px' fontWeight={600}>
-            Welcome to Pantry Pals!
+      <Container
+        style={{
+          backgroundColor: '#F2E3D2',
+          maxWidth: '400px',
+          borderRadius: '16px',
+          padding: '48px',
+        }}>
+        <Stack spacing={2} marginTop='-12'>
+          <Box display='flex' justifyContent='center' marginBottom='-12'>
+            <img
+              src='/peachandgomacook.png'
+              alt='Logo'
+              style={{ width: '200px', height: '200px' }}
+            />
+          </Box>
+          <Text
+            color='#856454'
+            className='title'
+            align='center'
+            fontSize='40px'
+            marginBottom='8px'>
+            PantryPal
           </Text>
-          <Input
-            variant='filled'
-            placeholder='Username'
-            size='sm'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <Input
-            variant='filled'
-            placeholder='Password'
-            size='sm'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Stack direction='row' justify='center'>
+          <FormLabel color='#856454' marginBottom='-1'>
+            Username
+          </FormLabel>
+          <FormControl isInvalid={usernameEmpty}>
+            <Input
+              backgroundColor='#BCA490'
+              variant='outline'
+              size='md'
+              value={username}
+              onChange={handleUsernameChange}
+            />
+            <FormErrorMessage fontSize='12px' marginTop='1'>
+              Username is required
+            </FormErrorMessage>
+          </FormControl>
+          <FormLabel color='#856454' marginBottom='-1'>
+            Password
+          </FormLabel>
+          <FormControl isInvalid={passwordEmpty}>
+            <Input
+              backgroundColor='#BCA490'
+              variant='outline'
+              size='md'
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <FormErrorMessage fontSize='12px' marginTop='1'>
+              Password is required
+            </FormErrorMessage>
+          </FormControl>
+          <Stack
+            direction='row'
+            justify='center'
+            marginTop='8'
+            marginBottom='0'
+            spacing='8'>
             <Button
-              flex='3'
-              size='sm'
-              colorScheme='blue'
-              isDisabled={!username || !password}
-              onClick={handleLoginClick}>
-              Login
+              flex='1'
+              size='md'
+              color='white'
+              backgroundColor='#856454'
+              onClick={(e) => handleLoginClick(e, toast)}
+            >
+              Sign In
             </Button>
             <Button
-              flex='5'
-              size='sm'
-              colorScheme='green'
-              isDisabled={!username || !password}
-              onClick={handleCreateAccountClick}>
-              Create Account
+              flex='1'
+              size='md'
+              color='white'
+              backgroundColor='#856454'
+              onClick={(e) => handleCreateAccountClick(e, toast)}>
+              Sign Up
             </Button>
           </Stack>
         </Stack>
