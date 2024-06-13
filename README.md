@@ -1,6 +1,6 @@
 # Team 10 Project *Pantry Pals*
 
-This project is a PantryPals application developed by Team 10 in CSE112. The React frontend, located in the `src/main/java/ReactView/react` directory, is built using Vite for a fast and optimized development experience.
+This project is a PantryPals application developed by Team 10 in CSE112. The React frontend, located in the `src/` directory, is built using Vite for a fast and optimized development experience.
 
 ## Project Structure
 
@@ -41,3 +41,29 @@ npm run dev
 
 ## Contributing
 Feel free to open issues or submit pull requests. For major changes, please discuss with members in advance to ensure they align with the project's goals.
+
+## Repo Organization
+
+------------
+
+    ├── .github
+    │
+    ├── src                        <- Source code for this project.
+    │   │
+    │   ├── lambda_functions        
+    │   │
+    │   ├── public                  <- React.
+    │   │
+    │   ├── src               <- React source folder.
+    │   │
+    │   ├── index.html
+    │   │
+    │   └── package*          <- React packages.
+    │       
+    └── docs                       <- Docs.
+         │
+         ├── ADR                   <- ADRs.
+         │
+         └── workplans             <- Workplans.
+    
+   
