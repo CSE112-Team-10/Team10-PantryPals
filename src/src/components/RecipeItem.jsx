@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import '../pages/styles.css';
+
+import { useState } from 'react';
 
 import {
   Box,
@@ -12,7 +14,6 @@ import {
   Button,
   GridItem,
 } from '@chakra-ui/react';
-import '../pages/styles.css';
 
 function RecipeItem(props) {
     const {recipe} = props;
@@ -51,7 +52,7 @@ function RecipeItem(props) {
                     />
                     <Text
                         color='#856454'
-                        className='title4'
+                        className='scrollbar title4'
                         align='center'
                         fontSize='30px'
                         font='canva sans'
@@ -59,12 +60,13 @@ function RecipeItem(props) {
                         top='50%'
                         left='50%'
                         transform='translate(-50%, -50%)'
+                        height='100%'
+                        paddingLeft='15%'
                         display={isHovered ? 'block' : 'none'}
                     >
                         {recipe['recipeTitle']}
                     </Text>
             </Box>
-            
         </VStack>
     )
 }

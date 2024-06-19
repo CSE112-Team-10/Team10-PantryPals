@@ -2,7 +2,7 @@ import { Flex, Container, Stack, Button } from '@chakra-ui/react';
 import '../pages/styles.css';
 
 function WelcomeScreen(props) {
-  const { onNavigate, set_modal } = props;
+  const { onNavigate } = props;
   return (
     <Flex align='center' justify='center' width='full' height='full'>
       <Container

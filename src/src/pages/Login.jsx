@@ -90,7 +90,7 @@ function LoginPage() {
     });
 
     try {
-      const result = await AccountManager({ method: 'addUser', username:username});
+      const result = await AccountManager({ method: 'addUser', username:username, password:password});
 
       if (result != '-1' && username && password) {
         toast.update(toast_id, {

@@ -1,4 +1,4 @@
-import './Recipe.css';
+import '../pages/styles.css';
 
 import {
   Modal,
@@ -16,13 +16,14 @@ import {
   VStack,
   Stack,
   Textarea,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { DalleE } from '../api/DalleE';
 import { RecipeManager } from '../api/RecipeManager';
 
 function Recipe(props) {
-  const { onNavigate, isOpen, onClose, recipe, number_of_servin, difficulty, cook_time, username, is_new_recipe } = props;
+  const { onNavigate, recipe, number_of_servin, difficulty, cook_time, username, is_new_recipe } = props;
   const initial_ingredient = Array.isArray(recipe['recipeIngredients']) ? recipe['recipeIngredients'].join('\n') : recipe['recipeIngredients']
   const initial_instruction = Array.isArray(recipe['recipeSteps']) ? recipe['recipeSteps'].join('\n') : recipe['recipeSteps']
   const [recipe_title, set_recipe_title] = useState(recipe['recipeTitle']);
@@ -38,6 +39,7 @@ function Recipe(props) {
     set_recipe_instruction(event.target.value);
   };
 
+  const { onClose } = useDisclosure();
   /**
      * This functions calls our api to generate a recipe image.
      * @param recipe_titel The recipe title.
@@ -81,10 +83,9 @@ function Recipe(props) {
   }, [])
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='xl' isCentered>
+    <Modal blockScrollOnMount={true} closeOnOverlayClick={false} isOpen={true} onClose={onClose} closeOnEsc={false} size='xl' isCentered >
       <ModalOverlay/>
       <ModalContent
-        overflowY='scroll'
         margin='20px'
         maxWidth='95%'
         maxHeight='95%'
@@ -92,7 +93,20 @@ function Recipe(props) {
         backgroundColor='#F2E8DE'
         className='scrollbar'
       >
-        <ModalCloseButton onClick={() => onNavigate('home')} />
+        <ModalCloseButton onClick={() => {
+            switch(recipe['mealType']) {
+              case 'breakfast':
+                onNavigate('BreakfastList');
+                return;
+              case 'lunch':
+                onNavigate('LunchList');
+                return;
+              default:
+                onNavigate('DinnerList');
+                return;
+            }
+          }}
+        />
         <ModalBody>
           <HStack align='center'>
             <VStack align='start' spacing={2} flex='1'>
@@ -116,7 +130,7 @@ function Recipe(props) {
                   size='lg'
                   minWidth={'500px'}
                   maxWidth={'900px'}
-                  minHeight={'300px'}
+                  minHeight={'200px'}
                   value={recipe_ingredient}
                   onChange={handleRecipeIngredientChange} 
                   resize={'none'} 
@@ -136,7 +150,7 @@ function Recipe(props) {
                 size='lg' 
                 minWidth={'500px'} 
                 maxWidth={'900px'} 
-                minHeight={'300px'} 
+                minHeight={'400px'} 
                 value={recipe_instruction} 
                 onChange={handleRecipeInstructionChange} 
                 resize={'none'} 
