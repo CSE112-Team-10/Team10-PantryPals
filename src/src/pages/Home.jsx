@@ -4,8 +4,6 @@ import { Box, HStack, Flex, Button } from '@chakra-ui/react';
 import WelcomePage from '../components/WelcomePage';
 import MealTypeSelectPage from '../components/MealTypeSelectPage';
 import VoiceRecognition from '../components/voiceRecognition';
-import NewRecipe from '../components/NewRecipe';
-import OutputtedRecipe from '../components/OutputtedRecipe';
 import Load from '../components/Load';
 import BreakfastList from '../components/BreakfastList';
 import LunchList from '../components/LunchList';
@@ -21,7 +19,6 @@ function HomePage() {
   const [currentPage, setCurrentPage] = useState('home');
   const [display, setDisplay] = useState('none');
   const [bookDisplay, setBookDisplay] = useState('flex'); 
-  const [modal, set_modal] = useState(false);
   const [meal_type, set_meal_type] = useState('');
   const [ingredients, set_ingredients] = useState('');
   const [number_of_serving, set_number_of_servering] = useState('');
@@ -62,10 +59,6 @@ function HomePage() {
     setCurrentPage('DinnerList');
   }
   
-  const handleModal = () => {
-    set_modal(!modal)
-  }
-
   async function fetchRecipe(mealType) {
     try {
       const result = await RecipeManager({ method: 'getRecipeList', userId: log_info.username})
@@ -85,21 +78,17 @@ function HomePage() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <WelcomePage onNavigate={navigateTo} set_modal={set_modal}/>;
+        return <WelcomePage onNavigate={navigateTo}/>;
       case 'MealTypeSelect':
         return <MealTypeSelectPage onNavigate={navigateTo} set_meal_type={set_meal_type}/>;
       case 'VoiceRecognition':
         return <VoiceRecognition onNavigate={navigateTo} set_ingredients={set_ingredients}/>;
-      case 'NewRecipe':
-        return <NewRecipe onNavigate={navigateTo} />;
       case 'Load':
         return <Load onNavigate={navigateTo} set_recipe={set_recipe} meal_type={meal_type} ingredients={ingredients} number_of_serving={number_of_serving} difficulty={difficulty} cook_time={cook_time} cuisine={cuisine} set_is_new_recipe={set_is_new_recipe} />;
-      case 'OutputtedRecipe':
-        return <OutputtedRecipe onNavigate={navigateTo} />;
       case 'Recipe':
-        return <Recipe onNavigate={navigateTo} isOpen={modal} onClose={handleModal} recipe={recipe} number_of_serving={number_of_serving} difficulty={difficulty} cook_time={cook_time} username={log_info.username} is_new_recipe={is_new_recipe}/>;
+        return <Recipe onNavigate={navigateTo} recipe={recipe} number_of_serving={number_of_serving} difficulty={difficulty} cook_time={cook_time} username={log_info.username} is_new_recipe={is_new_recipe}/>;
       case 'BreakfastList':
-        return <BreakfastList onNavigate={navigateTo} breakfast_list={breakfast_list} set_recipe={set_recipe} />;
+        return <BreakfastList onNavigate={navigateTo} breakfast_list={breakfast_list} set_recipe={set_recipe}/>;
       case 'LunchList':
         return <LunchList onNavigate={navigateTo} lunch_list={lunch_list} set_recipe={set_recipe}/>;
       case 'DinnerList':
@@ -123,11 +112,7 @@ function HomePage() {
     else if (currentPage == 'Load') setCurrentPage('VoiceRecognition');
     else if (currentPage == 'OutputtedRecipe')
       setCurrentPage('VoiceRecognition');
-    else if (
-      currentPage == 'BreakfastList' ||
-      currentPage == 'LunchList' ||
-      currentPage == 'DinnerList'
-    ) {
+    else if (currentPage == 'BreakfastList' || currentPage == 'LunchList' || currentPage == 'DinnerList') {
       setCurrentPage('home');
       setDisplay('flex');
     }
@@ -163,7 +148,6 @@ function HomePage() {
           const list = await fetchRecipe('breakfast');
           set_breakfast_list(list);
           set_is_new_recipe(false);
-          set_modal(true);
           handleBreakfastBook();
         }}
         fontWeight='600'
@@ -184,7 +168,6 @@ function HomePage() {
           const list = await fetchRecipe('lunch');
           set_lunch_list(list);
           set_is_new_recipe(false);
-          set_modal(true);
           handleLunchBook();
         }}
         fontWeight='600'
@@ -205,7 +188,6 @@ function HomePage() {
           const list = await fetchRecipe('dinner');
           set_dinner_list(list);
           set_is_new_recipe(false);
-          set_modal(true);
           handleDinnerBook();
         }}
         fontWeight='600'
@@ -255,8 +237,6 @@ function HomePage() {
         {'hello'}
         <Box width='100%' height='full'>
           {renderPage()}
-          {/* <WelcomePage /> */}
-          {/* <VoiceRecognition></VoiceRecognition>  */}
         </Box>
       </HStack>
     </Flex>

@@ -16,7 +16,7 @@ import '../pages/styles.css';
 import RecipeItem from './RecipeItem';
 
 function LunchList(props) {
-  const {onNavigate, lunch_list, set_recipe} = props
+  const {onNavigate, lunch_list, set_recipe, handleModal} = props
 
   return (
     <Flex className = 'all' width='full' height='full' backgroundColor='#F2D9BB' >
@@ -47,8 +47,8 @@ function LunchList(props) {
                     borderRadius: '32px',
                   }}
                   onClick={() => {
-                    set_recipe(recipe)
-                    onNavigate('Recipe')
+                    set_recipe(recipe);
+                    onNavigate('Recipe');
                   }}
                 >
                   <RecipeItem recipe={recipe}/>
