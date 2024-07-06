@@ -26,7 +26,7 @@ function LunchList(props) {
           className='title'
           marginTop='20px'
           fontSize='50px'>
-          Lunch recipes
+          Lunch Recipes
         </Text>
       {/* will hold all the recipes in this Box */}
         <Grid className = 'BreakfastBox' width='80%' height = '100%' marginTop='20px' marginBottom='10px' templateColumns='repeat(3, 1fr)' gap={3} overflow='auto' overflow-y= 'hidden'>

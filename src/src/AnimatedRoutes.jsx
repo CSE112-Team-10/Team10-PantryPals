@@ -1,5 +1,5 @@
 import './index.css';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import LoginPage from './pages/Login';
@@ -18,14 +18,24 @@ const AnimatedRoutes = () => {
      "/home": homePageRef,
    };
 
+   const handleEnter = () => {
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleExit = () => {
+    document.body.style.overflow = '';
+  };
+
   return (
     <SwitchTransition>
       <CSSTransition
         key={location.key}
         nodeRef={nodeRefs[location.pathname]}
-        classNames="fade"
+        classNames="slide-up"
         timeout={300}
         unmountOnExit
+        onEnter={handleEnter}
+        onExited={handleExit}
       >
         <div ref={nodeRefs[location.pathname]}>
           <Routes location={location}>

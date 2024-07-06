@@ -81,3 +81,23 @@ button:focus-visible {
   opacity: 0;
   transition: opacity 300ms;
 }
+
+.slide-up-enter {
+  transform: translateY(100%);
+  overflow: hidden;
+}
+.slide-up-enter-active {
+  transform: translateY(0);
+  transition: transform 250ms ease-in-out;
+  overflow: hidden;
+}
+.slide-up-exit {
+  transform: translateY(0);
+  overflow: hidden;
+}
+.slide-up-exit-active {
+  transform: translateY(-100%);
+  transition: transform 250ms ease-in-out;
+  overflow: hidden;
+}
+
