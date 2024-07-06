@@ -70,60 +70,6 @@
     background-size: 50px;
 }
 
-/* .dropdown-menu {
-    position: absolute;
-    background-color: transparent;
-    color: #8F6152;
-    justify-content: left;
-    font-weight: 600;
-    font-size: 25;
-}
-
-
-.dropdown-menu.recipe {
-    top: 50px;
-    left: 50px;
-}
-
-.dropdown-menu.breakfast {
-    font-family: 'Borsok';
-    font-size: 2em;
-    top: 90px;
-    left: 90px;
-    color: #A58375;
-    max-height: 0;
-    opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.dropdown-menu.lunch {
-    font-family: 'Borsok';
-    font-size: 2em;
-    top: 135px;
-    left: 90px;
-    color: #A58375;
-    max-height: 0;
-    opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.dropdown-menu.dinner {
-    font-family: 'Borsok';
-    font-size: 2em;
-    top: 180px;
-    left: 90px;
-    color: #A58375;
-    max-height: 0;
-    opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.dropdown-menu:hover {
-    cursor: pointer;
-    max-height: 120px;
-    opacity: 1;
-} */
-
 .dropdown-menu {
     position: absolute;
     background-color: transparent;
