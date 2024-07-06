@@ -1,22 +1,15 @@
-import { useState, useEffect } from 'react';
-
 import {
-  Box,
   Grid,
   Text,
   Flex,
-  Container,
-  Stack,
-  HStack,
   VStack,
-  Button,
   GridItem,
 } from '@chakra-ui/react';
 import '../pages/styles.css';
 import RecipeItem from './RecipeItem';
 
 function LunchList(props) {
-  const {onNavigate, lunch_list, set_recipe, handleModal} = props
+  const {onNavigate, lunch_list, set_recipe} = props
 
   return (
     <Flex className = 'all' width='full' height='full' backgroundColor='#F2D9BB' >
@@ -26,7 +19,7 @@ function LunchList(props) {
           className='title'
           marginTop='20px'
           fontSize='50px'>
-          Lunch recipes
+          Lunch Recipes
         </Text>
       {/* will hold all the recipes in this Box */}
         <Grid className = 'BreakfastBox' width='80%' height = '100%' marginTop='20px' marginBottom='10px' templateColumns='repeat(3, 1fr)' gap={3} overflow='auto' overflow-y= 'hidden'>

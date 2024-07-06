@@ -9,12 +9,9 @@ import {
   Button,
   Text,
   Image,
-  OrderedList,
-  ListItem,
   Box,
   HStack,
   VStack,
-  Stack,
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -23,20 +20,21 @@ import { DalleE } from '../api/DalleE';
 import { RecipeManager } from '../api/RecipeManager';
 
 function Recipe(props) {
-  const { onNavigate, recipe, number_of_servin, difficulty, cook_time, username, is_new_recipe } = props;
-  const initial_ingredient = Array.isArray(recipe['recipeIngredients']) ? recipe['recipeIngredients'].join('\n') : recipe['recipeIngredients']
-  const initial_instruction = Array.isArray(recipe['recipeSteps']) ? recipe['recipeSteps'].join('\n') : recipe['recipeSteps']
-  const [recipe_title, set_recipe_title] = useState(recipe['recipeTitle']);
-  const [recipe_ingredient, set_recipe_ingredient ] = useState(initial_ingredient);
-  const [recipe_instruction, set_recipe_instruction] = useState(initial_instruction);
+  const { onNavigate, recipe, set_recipe, username, is_new_recipe } = props;
   const [image, set_image] = useState(null);
 
   const handleRecipeIngredientChange = (event) => {
-    set_recipe_ingredient(event.target.value);
+    set_recipe(recipe => ({
+        ...recipe,
+        ["reciepIngredients"]:event.target.value
+      }))
   };
 
   const handleRecipeInstructionChange = (event) => {
-    set_recipe_instruction(event.target.value);
+    set_recipe(recipe => ({
+      ...recipe,
+      ["recipeSteps"]:event.target.value
+    }))
   };
 
   const { onClose } = useDisclosure();
@@ -47,7 +45,7 @@ function Recipe(props) {
      */
   async function handleRecipeImageGenreation() {
      const result = await DalleE({
-         title: recipe_title
+         title: recipe.recipeTitle
      });
      
     return result;
@@ -55,12 +53,11 @@ function Recipe(props) {
 
   async function handleSaveRecipe() {
     try {
-      await RecipeManager({method:'addRecipe', userId:username, recipeTitle:recipe_title, recipeIngredients:recipe_ingredient, recipeSteps:recipe_instruction, mealType: recipe['mealType'], imageURL:image})
+      await RecipeManager({method:'addRecipe', userId:username, recipeTitle:recipe.recipeTitle, recipeIngredients:recipe.recipeIngredients, recipeSteps:recipe.recipeSteps, mealType:recipe.mealType, imageURL:recipe.imageURL})
     } catch (error) {
       console.error(error);
     }
   }
-
 
   /**
      * Thus function is a side effect executed when the page 'Recipe' is
@@ -71,14 +68,18 @@ function Recipe(props) {
       async function fetchRecipeImage() {
         try {
             const result = await handleRecipeImageGenreation();
-            set_image(result);
+            set_recipe(recipe => ({
+              ...recipe,
+              ["imageURL"]:result
+            }))
+            set_image(result)
         } catch (error) {
             console.error('Failed to fetch recipe image: ', error);
         }
       }
       fetchRecipeImage();
     } else {
-      set_image(recipe['imageURL'])
+      set_image(recipe.imageURL)
     }
   }, [])
 
@@ -96,13 +97,13 @@ function Recipe(props) {
         <ModalCloseButton onClick={() => {
             switch(recipe['mealType']) {
               case 'breakfast':
-                onNavigate('BreakfastList');
+                onNavigate('breakfastlist');
                 return;
               case 'lunch':
-                onNavigate('LunchList');
+                onNavigate('lunchlist');
                 return;
               default:
-                onNavigate('DinnerList');
+                onNavigate('dinnerlist');
                 return;
             }
           }}
@@ -116,7 +117,7 @@ function Recipe(props) {
                 fontWeight={1000}
                 color={'#A58375'}
                 className='title'>
-                {recipe_title}
+                {recipe.recipeTitle}
               </Text>
               <Text
                 fontSize='28px'
@@ -131,7 +132,7 @@ function Recipe(props) {
                   minWidth={'500px'}
                   maxWidth={'900px'}
                   minHeight={'200px'}
-                  value={recipe_ingredient}
+                  value={recipe.recipeIngredients}
                   onChange={handleRecipeIngredientChange} 
                   resize={'none'} 
                   border={'transparent'}
@@ -151,7 +152,7 @@ function Recipe(props) {
                 minWidth={'500px'} 
                 maxWidth={'900px'} 
                 minHeight={'400px'} 
-                value={recipe_instruction} 
+                value={recipe.recipeSteps} 
                 onChange={handleRecipeInstructionChange} 
                 resize={'none'} 
                 textColor={'#A58375'} 

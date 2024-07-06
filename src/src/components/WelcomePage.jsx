@@ -20,7 +20,6 @@ function WelcomeScreen(props) {
             textColor='#F2F2F2'
             fontSize='1.5em'
             onClick={() => {
-              set_modal(true);
               onNavigate('MealTypeSelect');
             }}
             >
