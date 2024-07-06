@@ -22,7 +22,7 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [login, setLogin] = useState(['', '']);
+  const [login, setLogin] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -31,8 +31,11 @@ function LoginPage() {
 
   async function handleLoginClick(e, toast) {
     e.preventDefault();
-    
+    setIsSubmitted(true);
+    setLogin(true);
+
     if(username === '' || password === '') {
+      setLogin(false);
       return;
     }
 
@@ -72,13 +75,17 @@ function LoginPage() {
         isClosable: true,
       });
     }
+
+    setLogin(false);
   }
 
   async function handleCreateAccountClick(e) {
     e.preventDefault();
     setIsSubmitted(true);
+    setLogin(true);
 
     if(username === '' || password === '') {
+      setLogin(false);
       return;
     }
 
@@ -118,6 +125,8 @@ function LoginPage() {
         isClosable: true,
       });
     }
+
+    setLogin(false);
   }
 
   function handleUsernameChange(e) {
@@ -196,6 +205,7 @@ function LoginPage() {
               size='md'
               color='white'
               backgroundColor='#856454'
+              isLoading={login}
               onClick={(e) => handleLoginClick(e, toast)}
             >
               Sign In
@@ -205,6 +215,7 @@ function LoginPage() {
               size='md'
               color='white'
               backgroundColor='#856454'
+              isLoading={login}
               onClick={(e) => handleCreateAccountClick(e, toast)}>
               Sign Up
             </Button>
