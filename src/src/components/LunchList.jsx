@@ -1,22 +1,15 @@
-import { useState, useEffect } from 'react';
-
 import {
-  Box,
   Grid,
   Text,
   Flex,
-  Container,
-  Stack,
-  HStack,
   VStack,
-  Button,
   GridItem,
 } from '@chakra-ui/react';
 import '../pages/styles.css';
 import RecipeItem from './RecipeItem';
 
 function LunchList(props) {
-  const {onNavigate, lunch_list, set_recipe, handleModal} = props
+  const {onNavigate, lunch_list, set_recipe} = props
 
   return (
     <Flex className = 'all' width='full' height='full' backgroundColor='#F2D9BB' >

@@ -1,20 +1,17 @@
 import {
-    Box,
     Text,
     Flex,
     Container,
     Stack,
-    HStack,
-    Button,
-  } from '@chakra-ui/react';
+} 
+from '@chakra-ui/react';
 import '../pages/styles.css';
 import { ChatGPT } from '../api/ChatGPT';
-import { useEffect, useState } from 'react';
-import { DalleE } from '../api/DalleE';
+import { useEffect } from 'react';
 
 
 function Load(props) {
-    const { onNavigate, set_recipe, meal_type, ingredients, number_of_serving, difficulty, cook_time, cuisine, set_is_new_recipe } = props;
+    const { onNavigate, recipe, set_recipe, set_is_new_recipe } = props;
 
     /**
      * This function calls our api to generate a recipe.
@@ -23,12 +20,8 @@ function Load(props) {
      */
     async function handleRecipeGeneration() {
         const result = await ChatGPT({ 
-          meal_type: meal_type, 
-          ingredients: ingredients, 
-          number_of_serving: number_of_serving,
-          difficulty: difficulty,
-          cook_time: cook_time,
-          cuisine: cuisine 
+          meal_type: recipe.mealType, 
+          ingredients: recipe.recipeIngredients, 
         });
         
         return result;

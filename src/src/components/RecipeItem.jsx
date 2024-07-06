@@ -1,18 +1,9 @@
 import '../pages/styles.css';
-
 import { useState } from 'react';
-
 import {
   Box,
-  Grid,
   Text,
-  Flex,
-  Container,
-  Stack,
-  HStack,
   VStack,
-  Button,
-  GridItem,
 } from '@chakra-ui/react';
 
 function RecipeItem(props) {

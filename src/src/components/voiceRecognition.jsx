@@ -1,22 +1,12 @@
 import 'regenerator-runtime';
-
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import {
-  Box,
-  VStack,
-  HStack,
-  List,
-  ListItem,
   Flex,
-  Select,
   Container,
   Stack,
   Text,
   Input,
-  Checkbox,
   Button,
 } from '@chakra-ui/react';
 
@@ -26,12 +16,9 @@ import {
  * It also includes an input field for users to type their requests.
  */
 const VoiceRecognition = (props) => {
-  const { onNavigate, set_ingredients} = props;
-  const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const { onNavigate, set_recipe} = props;
+  const { transcript, listening, resetTranscript } = useSpeechRecognition();
   const [userInput, setUserInput] = useState('');
-
-  // Navigate function from react-router-dom
-  const navigate = useNavigate();
 
   // Start listening to the user's voice
   const startListening = () => SpeechRecognition.startListening({ continuous: true });
@@ -87,7 +74,10 @@ const VoiceRecognition = (props) => {
               colorScheme='green'
               size='sm'
               onClick={() => {
-                set_ingredients(userInput.length > 0 ? userInput : transcript);
+                set_recipe(recipe => ({
+                  ...recipe,
+                  ["recipeIngredients"]:(userInput.length > 0 ? userInput : transcript)
+                }))
                 onNavigate('Load');
               }}>
               Generate
@@ -100,7 +90,7 @@ const VoiceRecognition = (props) => {
             {userInput.length > 0 ? userInput : transcript}
           </Text>
           <Input
-            placeholder='Type your request here'
+            placeholder='Type your ingredients here'
             value={userInput}
             onChange={handleInputChange}
             marginTop='1em'
@@ -110,26 +100,5 @@ const VoiceRecognition = (props) => {
     </Flex>
   );
 };
-
-/**
- * Welcome component provides a welcome screen with a button 
- * to navigate to the MealTypeSelect screen.
- */
-function Welcome({ onNavigate }) {
-  return (
-    <Flex align='center' justify='center' width='full' height='full'>
-      <Container maxWidth='300px'>
-        <Stack spacing={2}>
-          <Button
-            colorScheme='blue'
-            size='sm'
-            onClick={() => onNavigate('MealTypeSelect')}>
-            Generate New Recipe
-          </Button>
-        </Stack>
-      </Container>
-    </Flex>
-  );
-}
 
 export default VoiceRecognition;

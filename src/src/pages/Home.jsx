@@ -1,7 +1,7 @@
 import './styles.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, HStack, Flex, Button } from '@chakra-ui/react';
+import { Box, HStack, Flex } from '@chakra-ui/react';
 import WelcomePage from '../components/WelcomePage';
 import MealTypeSelectPage from '../components/MealTypeSelectPage';
 import VoiceRecognition from '../components/voiceRecognition';
@@ -16,15 +16,7 @@ const basepath = import.meta.env.BASE_URL;
 
 function HomePage() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [display, setDisplay] = useState('none');
-  const [bookDisplay, setBookDisplay] = useState(false); 
-  const [meal_type, set_meal_type] = useState('');
-  const [ingredients, set_ingredients] = useState('');
-  const [number_of_serving, set_number_of_servering] = useState('');
-  const [difficulty, set_difficulty] = useState('');
-  const [cook_time, set_cook_time] = useState('');
-  const [cuisine, set_cuisine] = useState('');
-  const [recipe, set_recipe] = useState(null);
+  const [recipe, set_recipe] = useState({});
   const [breakfast_list, set_breakfast_list] = useState([]);
   const [lunch_list, set_lunch_list] = useState([]);
   const [dinner_list, set_dinner_list] = useState([]);
@@ -32,24 +24,12 @@ function HomePage() {
   const location = useLocation();
   const log_info = location.state;
   const navigate = useNavigate();
-  
+
   const navigateTo = (page) => {
-    setDisplay('none');
     setCurrentPage(page);
   }
 
-  const handleRecipePreview = () => {
-    setBookDisplay(!bookDisplay)
-    if(display == "none") {
-      setDisplay("flex")
-    }
-    else {
-      setDisplay("none")
-    }
-  }
-
   const handleRecipeBookClick = async(meal) => {
-    setBookDisplay(!bookDisplay)
     setCurrentPage(`${meal}list`)
     set_is_new_recipe(false);
 
@@ -88,13 +68,13 @@ function HomePage() {
       case 'home':
         return <WelcomePage onNavigate={navigateTo}/>;
       case 'MealTypeSelect':
-        return <MealTypeSelectPage onNavigate={navigateTo} set_meal_type={set_meal_type}/>;
+        return <MealTypeSelectPage onNavigate={navigateTo} set_recipe={set_recipe}/>;
       case 'VoiceRecognition':
-        return <VoiceRecognition onNavigate={navigateTo} set_ingredients={set_ingredients}/>;
+        return <VoiceRecognition onNavigate={navigateTo} set_recipe={set_recipe}/>;
       case 'Load':
-        return <Load onNavigate={navigateTo} set_recipe={set_recipe} meal_type={meal_type} ingredients={ingredients} number_of_serving={number_of_serving} difficulty={difficulty} cook_time={cook_time} cuisine={cuisine} set_is_new_recipe={set_is_new_recipe} />;
+        return <Load onNavigate={navigateTo} recipe={recipe} set_recipe={set_recipe} set_is_new_recipe={set_is_new_recipe}/>;
       case 'Recipe':
-        return <Recipe onNavigate={navigateTo} recipe={recipe} number_of_serving={number_of_serving} difficulty={difficulty} cook_time={cook_time} username={log_info.username} is_new_recipe={is_new_recipe}/>;
+        return <Recipe onNavigate={navigateTo} recipe={recipe} set_recipe={set_recipe} username={log_info.username} is_new_recipe={is_new_recipe}/>;
       case 'breakfastlist':
         return <BreakfastList onNavigate={navigateTo} breakfast_list={breakfast_list} set_recipe={set_recipe}/>;
       case 'lunchlist':
@@ -111,17 +91,25 @@ function HomePage() {
   }
 
   function handleBackClick() {
-    setDisplay('none');
-    if (currentPage == 'MealTypeSelect') setCurrentPage('home');
-    else if (currentPage == 'VoiceRecognition')
-      setCurrentPage('MealTypeSelect');
-    else if (currentPage == 'NewRecipe') setCurrentPage('VoiceRecognition');
-    else if (currentPage == 'Load') setCurrentPage('VoiceRecognition');
-    else if (currentPage == 'OutputtedRecipe')
-      setCurrentPage('VoiceRecognition');
-    else if (currentPage == 'breakfastlist' || currentPage == 'lunchlist' || currentPage == 'dinnerlist') {
+    if (currentPage == 'MealTypeSelect') {
       setCurrentPage('home');
-      setDisplay('flex');
+    }
+    else if (currentPage == 'VoiceRecognition') {
+      setCurrentPage('MealTypeSelect');
+    }
+    else if (currentPage == 'NewRecipe') {
+      setCurrentPage('VoiceRecognition');
+    }
+    else if (currentPage == 'Load') {
+      setCurrentPage('VoiceRecognition');
+    }
+    else if (currentPage == 'OutputtedRecipe'){
+      setCurrentPage('VoiceRecognition');
+    }
+    else if (currentPage == 'breakfastlist' || 
+             currentPage == 'lunchlist' || 
+             currentPage == 'dinnerlist') {
+      setCurrentPage('home');
     }
   }
 
@@ -129,7 +117,6 @@ function HomePage() {
     <Flex width='100vw' height='100vh' align='center' justify='center'>
       <div
         className={`title4 dropdown-menu`}
-        onClick={handleRecipePreview}
       >
         Recipe Book
         <div style={{display: "flex", gap: "10px"}}>

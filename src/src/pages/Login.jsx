@@ -7,7 +7,6 @@ import {
   Stack,
   Text,
   Input,
-  Checkbox,
   Button,
   FormControl,
   FormLabel,

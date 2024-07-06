@@ -5,12 +5,11 @@ import {
   Container,
   Stack,
   HStack,
-  Button,
 } from '@chakra-ui/react';
 import '../pages/styles.css';
 
 function MealTypeSelectScreen(props) {
-  const { onNavigate, set_meal_type } = props;
+  const { onNavigate, set_recipe } = props;
 
   return (
     <Flex align='center' justify='center' width='full' height='full'>
@@ -36,7 +35,10 @@ function MealTypeSelectScreen(props) {
                 borderRadius: '32px',
               }}
               onClick={() => {
-                set_meal_type('breakfast');
+                set_recipe(recipe => ({
+                  ...recipe,
+                  ["mealType"]:"breakfast"
+                }))
                 onNavigate('VoiceRecognition');
               }}>
               <Stack spacing={2} marginTop='-12'>
@@ -72,7 +74,10 @@ function MealTypeSelectScreen(props) {
                 borderRadius: '32px',
               }}
               onClick={() => {
-                set_meal_type('lunch');
+                set_recipe(recipe => ({
+                  ...recipe,
+                  ["mealType"]:"lunch"
+                }))
                 onNavigate('VoiceRecognition');
               }}>
               <Stack spacing={2} marginTop='-12'>
@@ -108,7 +113,10 @@ function MealTypeSelectScreen(props) {
                 borderRadius: '32px',
               }}
               onClick={() => {
-                set_meal_type('dinner');
+                set_recipe(recipe => ({
+                  ...recipe,
+                  ["mealType"]:"dinner"
+                }))
                 onNavigate('VoiceRecognition');
               }}>
               <Stack spacing={2} marginTop='-12'>

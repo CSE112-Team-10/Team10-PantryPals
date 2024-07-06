@@ -1,5 +1,5 @@
 import './index.css';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import LoginPage from './pages/Login';

@@ -1,15 +1,8 @@
-import { useState, useEffect } from 'react';
-
 import {
-  Box,
   Grid,
   Text,
   Flex,
-  Container,
-  Stack,
-  HStack,
   VStack,
-  Button,
   GridItem,
 } from '@chakra-ui/react';
 import '../pages/styles.css';
