@@ -78,6 +78,7 @@
     top: 50px;
     left: 50px;
     cursor: pointer;
+    z-index: 1;
 }
 
 .dropdown-menu-breakfast {

@@ -1,24 +1,43 @@
-import { useState, useEffect } from 'react';
-import { List, ListItem } from '@chakra-ui/react';
-import ingredientsData from '../ingredients.json';
+import './RecipeList.css'
+import {
+  Grid,
+  Text,
+  Flex,
+  VStack,
+  GridItem,
+} from '@chakra-ui/react';
+import RecipeItem from './RecipeItem';
 
-function RecipeList() {
-  const [ingredients, setIngredients] = useState([]);
-
-  // useEffect with an empty dependency array runs only once when the component mounts
-  useEffect(() => {
-    // Simulate loading ingredients from the file
-    setIngredients(ingredientsData);
-  }, []);
+function RecipeList(props) {
+  const {onNavigate, recipe_list, set_recipe} = props
 
   return (
-    <List spacing={2}>
-      {ingredients.map((ingredient, index) => (
-        <ListItem key={index} bg={index % 2 === 1 ? 'white' : 'gray.300'} p={1}>
-          {ingredient}
-        </ListItem>
-      ))}
-    </List>
+    <Flex className='Flex'>
+      <VStack className = 'main-stack'>
+        <Text className='title'>
+          Lunch Recipes
+        </Text>
+        <Grid className='recipe-grid'>
+          {recipe_list.length > 0 ?
+            recipe_list.map((recipe, index) => {
+              return(
+                <GridItem
+                  className='recipe-grid-item'
+                  key={index}
+                  onClick={() => {
+                    set_recipe(recipe);
+                    onNavigate('Recipe');
+                  }}
+                >
+                  <RecipeItem recipe={recipe}/>
+                </GridItem>
+              )
+            })
+            : null
+          }
+        </Grid> 
+      </VStack>
+    </Flex>
   );
 }
 

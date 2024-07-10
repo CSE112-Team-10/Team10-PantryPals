@@ -169,6 +169,7 @@ function HomePage() {
           justifyContent='right'
           _hover={{ cursor: 'pointer' }}
           fontWeight='600'
+          zIndex={1}
           onClick={handleBackClick}>
           Back
         </Box>
