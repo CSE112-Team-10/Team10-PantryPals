@@ -11,19 +11,27 @@ import { useEffect, useRef } from 'react';
 
 function LunchList(props) {
   const {onNavigate, lunch_list, set_recipe} = props
-  const resizeTimeoutRef = useRef(null);
+  const resize_timeout = useRef(null);
+  const skeleton_grid_items = [];
+
+  for (let i = 0; i < 9; i++) {
+    skeleton_grid_items.push(<GridItem key={i} className='skeleton-grid-item' />);
+  }
 
   useEffect(() => {
-    const individual_items = document.querySelectorAll(".recipe-item")
-    const grid_container = document.querySelector(".recipe-grid")
-    const grid_items = Array.from(grid_container.children)
+    const recipe_items = document.querySelectorAll(".recipe-item")
+    const grid = document.querySelector(".grid")
+    const grid_items = Array.from(grid.children)
 
+    // Function to get the positions of each skeleton grid item
     function getGridItemBound() {
       return grid_items.map(item => item.getBoundingClientRect())
     }
 
-    function animateGridItems(initialBounds, finalBounds) {
-      individual_items.forEach((item, index) => {
+    // Function that makes the recipe item follow the trajactory of
+    // the skeleton grid item.
+    function animateRecipeItems(initialBounds, finalBounds) {
+      recipe_items.forEach((item, index) => {
         const initial = initialBounds[index]
         const final = finalBounds[index]
 
@@ -46,21 +54,38 @@ function LunchList(props) {
       })
     }
 
+    function applyEntranceAnimation() {
+      const dimention = grid.getClientRects()
+      const width = dimention[0].width / 350
+      const height = dimention[0].height / 200
+      const num_of_items = width * height
+      for(let i = 0; i < num_of_items; i++) {
+        if (i < recipe_items.length) {
+          recipe_items[i].style.animationDuration = `${0.3 + i * 0.2}s`
+        }
+      }
+    }
+
+    // Apply fade in animation on upon opening page
+    applyEntranceAnimation()
+
+    // Check the initial positions of each skeleton grid item
     let initialBounds = getGridItemBound()
 
+    // Replicate the position of the skeleton grid item to the recipe item
     initialBounds.forEach((bound, index) => {
-      individual_items[index].style.left = `${bound.left}px`
-      individual_items[index].style.top = `${bound.top-100}px`
+      recipe_items[index].style.left = `${bound.left}px`
+      recipe_items[index].style.top = `${bound.top-100}px`
     })
 
      // Function to handle resize with debounce
     function handleResize() {
-      if (resizeTimeoutRef.current) {
-        clearTimeout(resizeTimeoutRef.current);
+      if (resize_timeout.current) {
+        clearTimeout(resize_timeout.current);
       }
-      resizeTimeoutRef.current = setTimeout(() => {
+      resize_timeout.current = setTimeout(() => {
         const finalBounds = getGridItemBound();
-        animateGridItems(initialBounds, finalBounds);
+        animateRecipeItems(initialBounds, finalBounds);
         initialBounds = finalBounds;
       }, 400);
     }
@@ -79,30 +104,33 @@ function LunchList(props) {
           Lunch Recipes
         </Text>
         <div className='container'>
-          <Grid className='recipe-grid'>
-              {lunch_list.length > 0 ?
-                lunch_list.map((recipe, index) => {
-                  return(
-                    <GridItem className='recipe-grid-item' key={index}/>
-                  )
-                }) : null
-              }
-            </Grid>
-            {lunch_list.length > 0 ? 
-              lunch_list.map((recipe, index) => {
-                return (
-                  <div 
-                    className='recipe-item' 
-                    key={index}
-                    onClick={() => {
-                      set_recipe(recipe);
-                      onNavigate('Recipe');
-                    }}
-                  >
-                    <RecipeItem recipe={recipe} />
-                  </div>
-                )}) : null
+          <Grid className='grid'>
+            {lunch_list.length > 0 ?
+              lunch_list.map((_, index) => {
+                return(
+                  <GridItem className='grid-item' key={index}/>
+                )
+              }) : null
             }
+          </Grid>
+          {lunch_list.length > 0 ? 
+            lunch_list.map((recipe, index) => {
+              return (
+                <div 
+                  className='recipe-item' 
+                  key={index}
+                  onClick={() => {
+                    set_recipe(recipe);
+                    onNavigate('Recipe');
+                  }}
+                >
+                  <RecipeItem recipe={recipe} />
+                </div>
+              )}) : null
+          }
+          {/* <Grid className='skeleton-grid'>
+            {skeleton_grid_items}
+          </Grid> */}
         </div>
       </VStack>
     </Flex>
