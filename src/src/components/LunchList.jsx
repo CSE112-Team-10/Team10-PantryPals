@@ -10,7 +10,7 @@ import RecipeItem from './RecipeItem';
 import { useEffect, useRef } from 'react';
 
 function LunchList(props) {
-  const {onNavigate, lunch_list, set_recipe} = props
+  const {onNavigate, recipe_list, set_recipe} = props
   const resize_timeout = useRef(null);
   const skeleton_grid_items = [];
 
@@ -61,7 +61,7 @@ function LunchList(props) {
       const num_of_items = width * height
       for(let i = 0; i < num_of_items; i++) {
         if (i < recipe_items.length) {
-          recipe_items[i].style.animationDuration = `${0.3 + i * 0.2}s`
+          recipe_items[i].style.animationDuration = `${0.4 + i * 0.2}s`
         }
       }
     }
@@ -95,7 +95,7 @@ function LunchList(props) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [lunch_list])
+  }, [recipe_list])
 
   return (
     <Flex className='Flex'>
@@ -105,16 +105,16 @@ function LunchList(props) {
         </Text>
         <div className='container'>
           <Grid className='grid'>
-            {lunch_list.length > 0 ?
-              lunch_list.map((_, index) => {
+            {recipe_list.length > 0 ?
+              recipe_list.map((_, index) => {
                 return(
                   <GridItem className='grid-item' key={index}/>
                 )
               }) : null
             }
           </Grid>
-          {lunch_list.length > 0 ? 
-            lunch_list.map((recipe, index) => {
+          {recipe_list.length > 0 ? 
+            recipe_list.map((recipe, index) => {
               return (
                 <div 
                   className='recipe-item' 

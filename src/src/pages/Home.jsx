@@ -21,6 +21,9 @@ function HomePage() {
   const [lunch_list, set_lunch_list] = useState([]);
   const [dinner_list, set_dinner_list] = useState([]);
   const [is_new_recipe, set_is_new_recipe]=  useState(false);
+  const [breakfast_list_fetched, set_breakfast_list_fetched] = useState(false);
+  const [lunch_list_fetched, set_lunch_list_fetched] = useState(false);
+  const [dinner_list_fetched, set_dinner_list_fetched] = useState(false);
   const location = useLocation();
   const log_info = location.state;
   const navigate = useNavigate();
@@ -33,16 +36,27 @@ function HomePage() {
     setCurrentPage(`${meal}list`)
     set_is_new_recipe(false);
 
-    const list = await fetchRecipe(meal);
     switch (meal) {
       case "breakfast":
-        set_breakfast_list(list);
+        if(!breakfast_list_fetched) {
+          const list = await fetchRecipe(meal)
+          set_breakfast_list(list)
+          set_breakfast_list_fetched(v => (!v))
+        }
         break;
       case "lunch":
-        set_lunch_list(list)
+        if(!lunch_list_fetched) {
+          const list = await fetchRecipe(meal)
+          set_lunch_list(list)
+          set_lunch_list_fetched(v => (!v))
+        }
         break
       default:
-        set_dinner_list(list)
+        if(!dinner_list_fetched) {
+          const list = await fetchRecipe(meal)
+          set_dinner_list(list)
+          set_dinner_list_fetched(v => (!v))
+        }
         break
     }
   }
@@ -76,11 +90,11 @@ function HomePage() {
       case 'Recipe':
         return <Recipe onNavigate={navigateTo} recipe={recipe} set_recipe={set_recipe} username={log_info.username} is_new_recipe={is_new_recipe}/>;
       case 'breakfastlist':
-        return <BreakfastList onNavigate={navigateTo} breakfast_list={breakfast_list} set_recipe={set_recipe}/>;
+        return <BreakfastList onNavigate={navigateTo} recipe_list={breakfast_list} set_recipe={set_recipe}/>;
       case 'lunchlist':
-        return <LunchList onNavigate={navigateTo} lunch_list={lunch_list} set_recipe={set_recipe}/>;
+        return <LunchList onNavigate={navigateTo} recipe_list={lunch_list} set_recipe={set_recipe}/>;
       case 'dinnerlist':
-        return <DinnerList onNavigate={navigateTo} dinner_list={dinner_list} set_recipe={set_recipe}/>;
+        return <DinnerList onNavigate={navigateTo} recipe_list={dinner_list} set_recipe={set_recipe}/>;
       default:
         return <HomePage onNavigate={navigateTo} />;
     }

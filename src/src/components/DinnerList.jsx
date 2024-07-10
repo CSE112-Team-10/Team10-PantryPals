@@ -1,3 +1,4 @@
+import './RecipeList.css'
 import {
   Grid,
   Text,
@@ -5,54 +6,132 @@ import {
   VStack,
   GridItem,
 } from '@chakra-ui/react';
-import '../pages/styles.css';
 import RecipeItem from './RecipeItem';
+import { useEffect, useRef } from 'react';
 
 function DinnerList(props) {
-  
-  const {onNavigate, dinner_list, set_recipe} = props
+  const {onNavigate, recipe_list, set_recipe} = props
+  const resize_timeout = useRef(null);
+  const skeleton_grid_items = [];
+
+  for (let i = 0; i < 9; i++) {
+    skeleton_grid_items.push(<GridItem key={i} className='skeleton-grid-item' />);
+  }
+
+  useEffect(() => {
+    const recipe_items = document.querySelectorAll(".recipe-item")
+    const grid = document.querySelector(".grid")
+    const grid_items = Array.from(grid.children)
+
+    // Function to get the positions of each skeleton grid item
+    function getGridItemBound() {
+      return grid_items.map(item => item.getBoundingClientRect())
+    }
+
+    // Function that makes the recipe item follow the trajactory of
+    // the skeleton grid item.
+    function animateRecipeItems(initialBounds, finalBounds) {
+      recipe_items.forEach((item, index) => {
+        const initial = initialBounds[index]
+        const final = finalBounds[index]
+
+        const deltaX =  initial.left - final.left
+        const deltaY =  initial.top - final.top
+        
+        item.animate(
+          [
+            {transform: `translate(${deltaX}px, ${deltaY}px)`},
+            {transform: 'none'}
+          ],
+          {
+            duration: 500,
+            easing: 'ease-in-out',
+            fill: 'both'
+          }
+        )
+        item.style.left = `${final.left}px`
+        item.style.top = `${final.top-100}px`
+      })
+    }
+
+    function applyEntranceAnimation() {
+      const dimention = grid.getClientRects()
+      const width = dimention[0].width / 350
+      const height = dimention[0].height / 200
+      const num_of_items = width * height
+      for(let i = 0; i < num_of_items; i++) {
+        if (i < recipe_items.length) {
+          recipe_items[i].style.animationDuration = `${0.4 + i * 0.2}s`
+        }
+      }
+    }
+
+    // Apply fade in animation on upon opening page
+    applyEntranceAnimation()
+
+    // Check the initial positions of each skeleton grid item
+    let initialBounds = getGridItemBound()
+
+    // Replicate the position of the skeleton grid item to the recipe item
+    initialBounds.forEach((bound, index) => {
+      recipe_items[index].style.left = `${bound.left}px`
+      recipe_items[index].style.top = `${bound.top-100}px`
+    })
+
+     // Function to handle resize with debounce
+    function handleResize() {
+      if (resize_timeout.current) {
+        clearTimeout(resize_timeout.current);
+      }
+      resize_timeout.current = setTimeout(() => {
+        const finalBounds = getGridItemBound();
+        animateRecipeItems(initialBounds, finalBounds);
+        initialBounds = finalBounds;
+      }, 400);
+    }
+
+     window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [recipe_list])
 
   return (
-    <Flex className = 'all' width='full' height='full' backgroundColor='#F2D9BB' >
-      <VStack className = 'mainstack' width='full' spacing='0px'>
-        <Text
-          color='#856454'
-          className='title'
-          marginTop='20px'
-          fontSize='50px'>
+    <Flex className='Flex'>
+      <VStack className = 'main-stack'>
+        <Text className='title'>
           Dinner Recipes
         </Text>
-
-      {/* will hold all the recipes in this Box */}
-        <Grid className = 'BreakfastBox' width='80%' height = '100%' marginTop='20px' marginBottom='10px' templateColumns='repeat(3, 1fr)' gap={3} overflow='auto' overflow-y= 'hidden'>
-          {/* recipe object */}
-          {dinner_list.length > 0 ?
-              dinner_list.map((recipe, index) => {
+        <div className='container'>
+          <Grid className='grid'>
+            {recipe_list.length > 0 ?
+              recipe_list.map((_, index) => {
                 return(
-                  <GridItem 
-                    key={index}
-                    className = 'Recipe1' 
-                    bg = '#F2E4D3'
-                    _hover={{ cursor: 'pointer' }}
-                    style={{
-                      marginTop: '30px',
-                      height: '200px',
-                      width: '350px',
-                      minWidth: '250px',
-                      borderRadius: '32px',
-                    }}
-                    onClick={() => {
-                      set_recipe(recipe);
-                      onNavigate('Recipe');
-                    }}
-                  >
-                    <RecipeItem recipe={recipe}/>
-                  </GridItem>
+                  <GridItem className='grid-item' key={index}/>
                 )
-              })
-              : null
+              }) : null
             }
-        </Grid> 
+          </Grid>
+          {recipe_list.length > 0 ? 
+            recipe_list.map((recipe, index) => {
+              return (
+                <div 
+                  className='recipe-item' 
+                  key={index}
+                  onClick={() => {
+                    set_recipe(recipe);
+                    onNavigate('Recipe');
+                  }}
+                >
+                  <RecipeItem recipe={recipe} />
+                </div>
+              )}) : null
+          }
+          {/* <Grid className='skeleton-grid'>
+            {skeleton_grid_items}
+          </Grid> */}
+        </div>
       </VStack>
     </Flex>
   );
