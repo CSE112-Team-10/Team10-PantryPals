@@ -159,20 +159,15 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <div className='logout' onClick={handleLogoutClick}>
-        <BouncyButton >
+      <BouncyButton className='logout' onClick={handleLogoutClick}>
           logout
-        </BouncyButton>
-      </div>
+      </BouncyButton>
       {currentPage !== 'home' && (
-        <div className='back-button' onClick={handleBackClick}>
-          <BouncyButton>
-            Back
-          </BouncyButton>
-        </div>
-      )}
+        <BouncyButton className='back-button' onClick={handleBackClick}>
+          Back
+        </BouncyButton>
+    )}
       <HStack width='full' height='full' spacing={0}>
-        {'hello'}
         <Box width='100%' height='full'>
           {renderPage()}
         </Box>

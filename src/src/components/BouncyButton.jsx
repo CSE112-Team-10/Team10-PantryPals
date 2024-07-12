@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
-const BouncyButton = ({ children }) => {
+const BouncyButton = ({ children, className, onClick }) => {
   const element = useRef(null);
   const [hover, setHover] = useState(false);
   const [first_time_loading, set_first_time_loading] = useState(true)
@@ -83,7 +83,7 @@ const BouncyButton = ({ children }) => {
   }, [hover]);
 
   return (
-    <div ref={element}>
+    <div ref={element} className={className} onClick={onClick}>
       {children}
     </div>
   );
