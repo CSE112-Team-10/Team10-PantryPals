@@ -1,7 +1,8 @@
 import './styles.css';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, HStack, Flex } from '@chakra-ui/react';
+import { Box, HStack, Flex, Button } from '@chakra-ui/react';
+import { RecipeManager } from '../api/RecipeManager';
 import WelcomePage from '../components/WelcomePage';
 import MealTypeSelectPage from '../components/MealTypeSelectPage';
 import VoiceRecognition from '../components/voiceRecognition';
@@ -10,7 +11,8 @@ import BreakfastList from '../components/BreakfastList';
 import LunchList from '../components/LunchList';
 import DinnerList from '../components/DinnerList';
 import Recipe from '../components/Recipe';
-import { RecipeManager } from '../api/RecipeManager';
+import BouncyButton from '../components/BouncyButton';
+
 
 const basepath = import.meta.env.BASE_URL;
 
@@ -157,36 +159,17 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <Box
-        className='title4'
-        position='absolute'
-        top='50px'
-        right='50px'
-        backgroundColor='#F2D9BB'
-        color='#8F6152'
-        display='flex'
-        justifyContent='right'
-        _hover={{ cursor: 'pointer' }}
-        fontWeight='600'
-        onClick={handleLogoutClick}>
-        Log Out
-      </Box>
+      <div className='logout' onClick={handleLogoutClick}>
+        <BouncyButton >
+          logout
+        </BouncyButton>
+      </div>
       {currentPage !== 'home' && (
-        <Box
-          className='title4'
-          position='absolute'
-          bottom='50px'
-          right='50px'
-          backgroundColor='#F2D9BB'
-          color='#8F6152'
-          display='flex'
-          justifyContent='right'
-          _hover={{ cursor: 'pointer' }}
-          fontWeight='600'
-          zIndex={1}
-          onClick={handleBackClick}>
-          Back
-        </Box>
+        <div className='back-button' onClick={handleBackClick}>
+          <BouncyButton>
+            Back
+          </BouncyButton>
+        </div>
       )}
       <HStack width='full' height='full' spacing={0}>
         {'hello'}
