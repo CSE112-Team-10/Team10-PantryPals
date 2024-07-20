@@ -24,16 +24,16 @@ const BouncyButton = ({ children, className, onClick }) => {
     };
 
     const onMouseMove = (e) => {
-      const hoverArea = (hover ? 0.7 : 0.5);
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-      const distance = Math.sqrt((mouseX - x) ** 2 + (mouseY - y) ** 2);
+      const hover_area = (hover ? 0.7 : 0.5);
+      const mouse_x = e.clientX;
+      const mouse_y = e.clientY;
+      const distance = Math.sqrt((mouse_x - x) ** 2 + (mouse_y - y) ** 2);
 
-      if (distance < (width * hoverArea)) {
+      if (distance < (width * hover_area)) {
         if (!hover) {
           setHover(true);
         }
-        onHover(mouseX, mouseY);
+        onHover(mouse_x, mouse_y);
       } else {
         if (hover) {
           setHover(false);
@@ -42,10 +42,10 @@ const BouncyButton = ({ children, className, onClick }) => {
       }
     };
 
-    const onHover = (mouseX, mouseY) => {
+    const onHover = (mouse_x, mouse_y) => {
       gsap.to(el, {
-        x: (mouseX - x) * 0.4,
-        y: (mouseY - y) * 0.4,
+        x: (mouse_x - x) * 0.4,
+        y: (mouse_y - y) * 0.4,
         scale: 1.15,
         ease: 'power2.out',
         duration: 0.4

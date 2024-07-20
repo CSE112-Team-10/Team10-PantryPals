@@ -17,7 +17,7 @@ function MealTypeSelectScreen(props) {
         <Stack spacing={2}>
           <Text
             color='#856454'
-            className='title'
+            className='title4'
             align='center'
             marginTop='-0.5em'
             marginBottom='0.5em'

@@ -160,7 +160,7 @@ function HomePage() {
         </div>
       </div>
       <BouncyButton className='logout' onClick={handleLogoutClick}>
-          logout
+          log out
       </BouncyButton>
       {currentPage !== 'home' && (
         <BouncyButton className='back-button' onClick={handleBackClick}>

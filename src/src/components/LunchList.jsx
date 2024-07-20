@@ -1,7 +1,6 @@
 import './RecipeList.css'
 import {
   Grid,
-  Text,
   Flex,
   VStack,
   GridItem,
@@ -54,30 +53,14 @@ function LunchList(props) {
       })
     }
 
-    function applyEntranceAnimation() {
-      const dimention = grid.getClientRects()
-      const width = dimention[0].width / 350
-      const height = dimention[0].height / 200
-      const num_of_items = width * height
-      for(let i = 0; i < num_of_items; i++) {
-        if (i < recipe_items.length) {
-          recipe_items[i].style.animationDuration = `${0.4 + i * 0.2}s`
-        }
-      }
-    }
-
-    // Apply fade in animation on upon opening page
-    applyEntranceAnimation()
-
     // Check the initial positions of each skeleton grid item
     let initialBounds = getGridItemBound()
 
-    // Replicate the position of the skeleton grid item to the recipe item
-    initialBounds.forEach((bound, index) => {
-      recipe_items[index].style.left = `${bound.left}px`
-      recipe_items[index].style.top = `${bound.top-100}px`
-    })
+    const first_position = initialBounds.map(() => initialBounds[0])
 
+    // Replicate the position of the skeleton grid item to the recipe item
+    animateRecipeItems(first_position, initialBounds)
+    
      // Function to handle resize with debounce
     function handleResize() {
       if (resize_timeout.current) {
@@ -100,9 +83,18 @@ function LunchList(props) {
   return (
     <Flex className='Flex'>
       <VStack className = 'main-stack'>
-        <Text className='title'>
-          Lunch Recipes
-        </Text>
+        <div className="title-container">
+          <ul className="title-list">
+            <li className="title-list-item">Lunch</li>
+            <li className="title-list-item">午餐</li>
+            <li className="title-list-item">दिन का खाना</li>
+            <li className="title-list-item">Almuerza</li>
+            <li className='title-list-item'>Almuerza</li>
+          </ul>
+          <div className="title-text">
+            Recipes
+          </div>
+        </div>
         <div className='container'>
           <Grid className='grid'>
             {recipe_list.length > 0 ?
