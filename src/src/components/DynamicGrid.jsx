@@ -6,11 +6,10 @@ import {
 import RecipeItem from './RecipeItem';
 import { useEffect, useRef } from 'react';
 
-function DynamicGrid({recipe_list, grid_class, grid_item_class}) {
-  const {onNavigate, recipe_list, set_recipe} = props
+function DynamicGrid({recipe_list, grid_class, grid_item_class, isLoading=false}) {
   const resize_timeout = useRef(null);
-  const skeleton_grid_items = [];
 
+  const skeleton_grid_items = [];
   for (let i = 0; i < 9; i++) {
     skeleton_grid_items.push(<GridItem key={i} className='skeleton-grid-item' />);
   }
@@ -19,15 +18,24 @@ function DynamicGrid({recipe_list, grid_class, grid_item_class}) {
     const recipe_items = document.querySelectorAll(".recipe-item")
     const grid = document.querySelector(".grid")
     const grid_items = Array.from(grid.children)
+    const container = document.querySelector('.container');
+    const containerDimension = container.getBoundingClientRect();
 
     // Function to get the positions of each skeleton grid item
     function getGridItemBound() {
-      return grid_items.map(item => item.getBoundingClientRect())
+      return grid_items.map(item => item.getBoundingClientRect());
+    }
+
+    function getRecipeItemBound() {
+      return Array.from(recipe_items).map(item => item.getBoundingClientRect());
     }
 
     // Function that makes the recipe item follow the trajactory of
     // the skeleton grid item.
     function animateRecipeItems(initialBounds, finalBounds) {
+      const scrollLeft = container.scrollLeft;
+      const scrollTop = container.scrollTop;
+      
       recipe_items.forEach((item, index) => {
         const initial = initialBounds[index]
         const final = finalBounds[index]
@@ -46,34 +54,15 @@ function DynamicGrid({recipe_list, grid_class, grid_item_class}) {
             fill: 'both'
           }
         )
-        item.style.left = `${final.left}px`
-        item.style.top = `${final.top-100}px`
+        item.style.left = `${final.left + scrollLeft - containerDimension.left }px`
+        item.style.top = `${final.top + scrollTop - containerDimension.top}px`
       })
     }
 
-    // function applyEntranceAnimation() {
-    //   const dimention = grid.getClientRects()
-    //   const width = dimention[0].width / 350
-    //   const height = dimention[0].height / 200
-    //   const num_of_items = width * height
-    //   for(let i = 0; i < num_of_items; i++) {
-    //     if (i < recipe_items.length) {
-    //       recipe_items[i].style.animationDuration = `${0.4 + i * 0.2}s`
-    //     }
-    //   }
-    // }
+    let initialBounds = getRecipeItemBound();
+    const finalBounds = getGridItemBound();
 
-    // // Apply fade in animation on upon opening page
-    // applyEntranceAnimation()
-
-    // Check the initial positions of each skeleton grid item
-    let initialBounds = getGridItemBound()
-
-    // Replicate the position of the skeleton grid item to the recipe item
-    initialBounds.forEach((bound, index) => {
-      recipe_items[index].style.left = `${bound.left}px`
-      recipe_items[index].style.top = `${bound.top-100}px`
-    })
+    animateRecipeItems(initialBounds, finalBounds);
 
      // Function to handle resize with debounce
     function handleResize() {
@@ -81,13 +70,13 @@ function DynamicGrid({recipe_list, grid_class, grid_item_class}) {
         clearTimeout(resize_timeout.current);
       }
       resize_timeout.current = setTimeout(() => {
+        initialBounds = getRecipeItemBound();
         const finalBounds = getGridItemBound();
         animateRecipeItems(initialBounds, finalBounds);
-        initialBounds = finalBounds;
       }, 400);
     }
 
-     window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
     
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -95,44 +84,32 @@ function DynamicGrid({recipe_list, grid_class, grid_item_class}) {
   }, [recipe_list])
 
   return (
-    isLoading ? 
-        <div className='container'>
-          <Grid className={grid_class}>
-            {recipe_list.length > 0 ?
-              recipe_list.map((_, index) => {
-                return(
-                  <GridItem className={grid_item} key={index}/>
-                )
-              })
-              :
-              null
-            }
-          </Grid>
-          {recipe_list.length > 0 ? 
-            recipe_list.map((recipe, index) => {
-              return (
-                <div 
-                  className='recipe-item' 
-                  key={index}
-                  onClick={() => {
-                    set_recipe(recipe);
-                    onNavigate('Recipe');
-                  }}
-                >
-                  <RecipeItem recipe={recipe} />
-                </div>
-              )
-            })
-            :
-            null
-          }
-        </div>
+    !isLoading ? 
+      <div className='container'>
+          <div className='grid'>
+            {recipe_list.length > 0 && recipe_list.map((_, index) => (
+              <div className="grid-item" key={index} />
+            ))}
+          </div>
+          {recipe_list.length > 0 && recipe_list.map((recipe, index) => (
+            <div 
+              className="recipe-item" 
+              key={index}
+              onClick={() => {
+                set_recipe(recipe);
+                onNavigate('Recipe');
+              }}
+            >
+              <RecipeItem recipe={recipe} />
+            </div>
+          ))}
+      </div>
         :
-        <div className='skeleton-grid'>
-            <Grid className='skeleton-grid'>
-                {skeleton_grid_items}
-            </Grid>
-        </div>
+      <div className='skeleton-grid'>
+          <Grid className='skeleton-grid'>
+              {skeleton_grid_items}
+          </Grid>
+      </div>
   );
 }
 

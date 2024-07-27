@@ -13,7 +13,6 @@ import DinnerList from '../components/DinnerList';
 import Recipe from '../components/Recipe';
 import BouncyButton from '../components/BouncyButton';
 
-
 const basepath = import.meta.env.BASE_URL;
 
 function HomePage() {
