@@ -91,11 +91,11 @@ function HomePage() {
       case 'Recipe':
         return <Recipe onNavigate={navigateTo} recipe={recipe} set_recipe={set_recipe} username={log_info.username} is_new_recipe={is_new_recipe}/>;
       case 'breakfastlist':
-        return <BreakfastList onNavigate={navigateTo} recipe_list={breakfast_list} set_recipe={set_recipe}/>;
+        return <BreakfastList onNavigate={navigateTo} recipe_list={breakfast_list} set_recipe={set_recipe} loading={breakfast_list_fetched}/>;
       case 'lunchlist':
-        return <LunchList onNavigate={navigateTo} recipe_list={lunch_list} set_recipe={set_recipe}/>;
+        return <LunchList onNavigate={navigateTo} recipe_list={lunch_list} set_recipe={set_recipe} loading={lunch_list_fetched}/>;
       case 'dinnerlist':
-        return <DinnerList onNavigate={navigateTo} recipe_list={dinner_list} set_recipe={set_recipe}/>;
+        return <DinnerList onNavigate={navigateTo} recipe_list={dinner_list} set_recipe={set_recipe} loading={dinner_list_fetched}/>;
       default:
         return <HomePage onNavigate={navigateTo} />;
     }
