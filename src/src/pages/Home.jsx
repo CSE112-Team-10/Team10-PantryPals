@@ -12,6 +12,7 @@ import LunchList from '../components/LunchList';
 import DinnerList from '../components/DinnerList';
 import Recipe from '../components/Recipe';
 import BouncyButton from '../components/BouncyButton';
+import Flip from '../components/Flip';
 
 const basepath = import.meta.env.BASE_URL;
 
