@@ -1,0 +1,71 @@
+.container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position:relative;
+}
+
+.grid {
+    display: grid;
+    width: 80%;
+    height: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-auto-rows: 200px;
+    gap: 50px;
+    justify-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+
+.grid-item {
+    height: 200px;
+    width: 350px;
+    min-width: 250px;
+    border-radius: 32px;
+}
+
+.recipe-item {
+    position: absolute;
+    background-color: #F2E4D3;
+    cursor: pointer;
+    height: 200px;
+    width: 350px;
+    min-width: 250px;
+    border-radius: 32px;
+}
+
+.skeleton-grid {
+    display: grid;
+    width: 80%;
+    height: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-auto-rows: 200px;
+    gap: 50px;
+    justify-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.skeleton-grid-item {
+    height: 200px;
+    width: 350px;
+    min-width: 250px;
+    border-radius: 32px;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsla(200, 20%, 80%, 0.3);
+    }   
+    100% {
+        background-color: hsla(200, 20%, 95%, 0.3);
+    }
+}
+

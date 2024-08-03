@@ -1,0 +1,52 @@
+.Flex {
+    width: 100%;
+    height: 100%;
+    background-color: #F2D9BB;
+}
+
+.main-stack {
+    width: 100%;
+}
+
+.title-container{
+    color: #856454;
+    font-size: 50px;
+    font-family: EtnaSans, sans-serif;
+    margin-top: 20px;
+    font-weight: 600;
+    gap: 20px;
+    overflow: hidden;
+    height: 80px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.title-text {
+    margin: 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.title-list {
+    text-align: center;
+    list-style: none;
+    animation: change 12s infinite;
+}
+.title-list-item {
+    line-height: 80px; /* Match the container height */
+    transform: translateY(-5.5px);
+}
+
+@keyframes change {
+    0%, 10%, 100% {transform: translate3d(0, 0, 0);}
+    12.5%, 22.5% {transform: translate3d(0, -20%, 0);}
+    25%, 35% {transform: translate3d(0, -40%, 0);}
+    37.5%, 47.5% {transform: translate3d(0, -60%, 0);}
+    50%, 60% {transform: translate3d(0, -80%, 0);}
+    62.5%, 72.5% {transform: translate3d(0, -60%, 0);}
+    75%, 85% {transform: translate3d(0, -40%, 0);}
+    87.5%, 97.5% {transform: translate3d(0, -20%, 0);}
+}

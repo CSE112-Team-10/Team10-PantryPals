@@ -1,5 +1,4 @@
 import '../pages/styles.css';
-
 import {
   Modal,
   ModalOverlay,
@@ -38,11 +37,30 @@ function Recipe(props) {
   };
 
   const { onClose } = useDisclosure();
+
+  const handleClose = () => {
+    if(!is_new_recipe) {
+      switch(recipe['mealType']) {
+        case 'breakfast':
+          onNavigate('breakfastlist');
+          return;
+        case 'lunch':
+          onNavigate('lunchlist');
+          return;
+        default:
+          onNavigate('dinnerlist');
+          return;
+      }
+    } else {
+      onNavigate('home');
+    }
+  }
+
   /**
-     * This functions calls our api to generate a recipe image.
-     * @param recipe_titel The recipe title.
-     * @returns The base 64 encoding string to generate the image.
-     */
+   * This functions calls our api to generate a recipe image.
+   * @param recipe_titel The recipe title.
+   * @returns The base 64 encoding string to generate the image.
+   */
   async function handleRecipeImageGenreation() {
      const result = await DalleE({
          title: recipe.recipeTitle
@@ -60,9 +78,9 @@ function Recipe(props) {
   }
 
   /**
-     * Thus function is a side effect executed when the page 'Recipe' is
-     * mounted. And inside the function, it generates the recipe image.
-     */
+   * Thus function is a side effect executed when the page 'Recipe' is
+   * mounted. And inside the function, it generates the recipe image.
+   */
   useEffect(() => {
     if(is_new_recipe) {
       async function fetchRecipeImage() {
@@ -94,20 +112,7 @@ function Recipe(props) {
         backgroundColor='#F2E8DE'
         className='scrollbar'
       >
-        <ModalCloseButton onClick={() => {
-            switch(recipe['mealType']) {
-              case 'breakfast':
-                onNavigate('breakfastlist');
-                return;
-              case 'lunch':
-                onNavigate('lunchlist');
-                return;
-              default:
-                onNavigate('dinnerlist');
-                return;
-            }
-          }}
-        />
+        <ModalCloseButton onClick={handleClose}/>
         <ModalBody>
           <HStack align='center'>
             <VStack align='start' spacing={2} flex='1'>
